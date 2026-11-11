@@ -1,0 +1,49 @@
+# Environment & secret files (never commit real secrets or local overrides)
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+
+# Python virtual environments & caches
+venv/
+.venv/
+env/
+backend/venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# SQLite databases & WAL runtime files (may contain student/demo records)
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Frontend dependencies & build outputs
+node_modules/
+frontend/node_modules/
+dist/
+build/
+frontend/dist/
+frontend/vite.config.js
+frontend/vite.config.d.ts
+*.tsbuildinfo
+
+# Temporary files, generated PDF exports, accidental root lockfile, logs & OS/IDE artifacts
+/package-lock.json
+*.log
+*.tmp
+tmp/
+temp/
+*.pdf
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+

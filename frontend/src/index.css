@@ -1,0 +1,133 @@
+/* ── Google Fonts — must come first ──────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light mode base */
+  body {
+    @apply bg-surface-bg text-navy-900 font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* ── Dark mode body ───────────────────────────────────────────────── */
+  .dark body {
+    @apply bg-dark-bg text-dark-text;
+  }
+
+  /* ── Accessible focus rings (visible for keyboard nav) ───────────── */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-electric-500 ring-offset-2 ring-offset-white;
+  }
+  .dark *:focus-visible {
+    @apply ring-offset-dark-bg;
+  }
+
+  /* ── Skip-to-main link (screen reader / keyboard users) ──────────── */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50
+           focus:bg-electric-600 focus:text-white focus:px-4 focus:py-2
+           focus:rounded-xl focus:font-bold focus:shadow-card;
+  }
+}
+
+/* ── Dark mode card overrides ───────────────────────────────────────────── */
+@layer components {
+  .dark .bg-white {
+    background-color: #1E293B;
+  }
+  .dark .bg-surface-bg {
+    background-color: #0F172A;
+  }
+  .dark .bg-slate-50 {
+    background-color: #1E293B;
+  }
+  .dark .bg-slate-100 {
+    background-color: #263146;
+  }
+  .dark .text-navy-900 {
+    color: #E2E8F0;
+  }
+  .dark .text-slate-600 {
+    color: #94A3B8;
+  }
+  .dark .text-slate-500 {
+    color: #64748B;
+  }
+  .dark .border-slate-200 {
+    border-color: #334155;
+  }
+  .dark .border-slate-100 {
+    border-color: #1E293B;
+  }
+  .dark .divide-slate-100 > * + * {
+    border-color: #1E293B;
+  }
+
+  /* Keep printable PDF document sheet crisp white paper even in dark mode */
+  .dark #billshield-report,
+  .dark #billshield-report .bg-white {
+    background-color: #FFFFFF;
+  }
+  .dark #billshield-report .bg-slate-50 {
+    background-color: #F8FAFC;
+  }
+  .dark #billshield-report .text-navy-900 {
+    color: #0B1F3A;
+  }
+  .dark #billshield-report .text-slate-600 {
+    color: #475569;
+  }
+  .dark #billshield-report .text-slate-500 {
+    color: #64748B;
+  }
+  .dark #billshield-report .border-slate-200 {
+    border-color: #E2E8F0;
+  }
+  .dark #billshield-report .border-slate-100 {
+    border-color: #F1F5F9;
+  }
+}
+
+/* ── Custom scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+/* ── Print Styles ────────────────────────────────────────────────────────── */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0B1F3A !important;
+  }
+  aside, nav, header, .print\:hidden {
+    display: none !important;
+  }
+  .print\:shadow-none {
+    box-shadow: none !important;
+  }
+  .print\:border-none {
+    border: none !important;
+  }
+  /* Ensure coloured verdict badges print in colour */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
