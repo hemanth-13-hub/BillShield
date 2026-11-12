@@ -30,15 +30,15 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantStyles = {
     primary:
-      "bg-electric-600 text-white hover:bg-electric-700 shadow-sm focus:ring-electric-500",
+      "bg-th-accent text-th-onAccent hover:bg-th-accentHover shadow-xs",
     secondary:
-      "bg-navy-900 text-white hover:bg-navy-800 shadow-sm focus:ring-navy-700",
+      "bg-th-secBtn text-th-onAccent hover:bg-th-secBtnHover shadow-xs",
     outline:
-      "border border-slate-200 bg-white text-navy-900 hover:bg-slate-50 focus:ring-slate-300",
+      "border border-th-border bg-th-card text-th-text hover:bg-th-highlight",
     danger:
-      "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
+      "bg-th-errSolid text-white hover:opacity-90 shadow-xs",
     ghost:
-      "text-slate-600 hover:text-navy-900 hover:bg-slate-100 focus:ring-slate-200",
+      "text-th-textSub hover:text-th-text hover:bg-th-highlight",
   };
 
   return (

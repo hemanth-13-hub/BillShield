@@ -56,10 +56,10 @@ export const SettingsPage: React.FC = () => {
   return (
     <div className="space-y-6 max-w-5xl">
       <div>
-        <h1 className="text-2xl font-extrabold text-navy-900 tracking-tight">
+        <h1 className="text-2xl font-extrabold text-th-text tracking-tight">
           System Configuration & Guidelines
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-1">
+        <p className="text-xs sm:text-sm text-th-textMuted mt-1">
           Adjust billing rates and tolerance thresholds according to Aditya University hostel regulations.
         </p>
       </div>
@@ -69,13 +69,13 @@ export const SettingsPage: React.FC = () => {
         <Card className="lg:col-span-1">
           <CardHeader>
             <CardTitle>Verification Parameters</CardTitle>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-th-textMuted mt-1">
               Editable defaults: ₹10/unit and ±5% tolerance
             </p>
           </CardHeader>
           <CardContent>
             {loading ? (
-              <p className="text-xs text-slate-400">Loading settings…</p>
+              <p className="text-xs text-th-textMuted">Loading settings…</p>
             ) : (
               <form onSubmit={handleSave} className="space-y-4">
                 <Input
@@ -115,52 +115,52 @@ export const SettingsPage: React.FC = () => {
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle>Aditya University Hostel Architecture</CardTitle>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-th-textMuted mt-1">
               Fixed project constraints and appliance inventory specification
             </p>
           </CardHeader>
           <CardContent className="space-y-4 text-xs">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                <h4 className="font-bold text-navy-900 mb-2 flex items-center justify-between">
+              <div className="p-4 rounded-xl bg-th-surface border border-th-border">
+                <h4 className="font-bold text-th-text mb-2 flex items-center justify-between">
                   <span>AC Room Profile</span>
-                  <span className="px-2 py-0.5 rounded-full bg-electric-100 text-electric-800 text-[10px]">
+                  <span className="px-2 py-0.5 rounded-full bg-th-lavender text-th-lavenderTxt border border-th-lavenderBdr text-[10px]">
                     AC Type
                   </span>
                 </h4>
-                <ul className="space-y-1.5 text-slate-600">
+                <ul className="space-y-1.5 text-th-textSub">
                   <li>• 1 Air Conditioner (1500W, ~8 hrs/day)</li>
                   <li>• 2 Normal Fans (75W, ~12 hrs/day)</li>
                   <li>• 2 Tube Lights (40W, ~8 hrs/day)</li>
                   <li>• 1 Washroom Light (15W, ~2 hrs/day)</li>
                   <li>• 1 Balcony Light (15W, ~3 hrs/day)</li>
-                  <li className="pt-1 font-semibold text-navy-900">• Capacity: 3 Roommates</li>
+                  <li className="pt-1 font-semibold text-th-text">• Capacity: 3 Roommates</li>
                 </ul>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                <h4 className="font-bold text-navy-900 mb-2 flex items-center justify-between">
+              <div className="p-4 rounded-xl bg-th-surface border border-th-border">
+                <h4 className="font-bold text-th-text mb-2 flex items-center justify-between">
                   <span>Non-AC Room Profile</span>
-                  <span className="px-2 py-0.5 rounded-full bg-slate-200 text-slate-800 text-[10px]">
+                  <span className="px-2 py-0.5 rounded-full bg-th-elevated text-th-textSub border border-th-border text-[10px]">
                     Non-AC Type
                   </span>
                 </h4>
-                <ul className="space-y-1.5 text-slate-600">
+                <ul className="space-y-1.5 text-th-textSub">
                   <li>• 2 Normal Fans (75W, ~14 hrs/day)</li>
                   <li>• 2 Tube Lights (40W, ~8 hrs/day)</li>
                   <li>• 1 Washroom Light (15W, ~2 hrs/day)</li>
                   <li>• 1 Balcony Light (15W, ~3 hrs/day)</li>
-                  <li className="pt-1 font-semibold text-navy-900">• Capacity: 3 Roommates</li>
+                  <li className="pt-1 font-semibold text-th-text">• Capacity: 3 Roommates</li>
                 </ul>
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-navy-900 text-white space-y-2">
+            <div className="p-4 rounded-xl bg-th-hero border border-th-heroBdr text-th-heroText space-y-2">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-sm">Source Tag Classification</span>
-                <span className="text-[10px] text-electric-400 font-mono">NON-NEGOTIABLE RULE</span>
+                <span className="text-[10px] text-th-accentText font-mono font-bold">NON-NEGOTIABLE RULE</span>
               </div>
-              <p className="text-slate-300 text-[11px] leading-relaxed">
+              <p className="text-th-heroSub text-[11px] leading-relaxed">
                 Every reading stored in BillShield carries an unforgeable source tag. Simulated demo data is NEVER presented as physical sensor data.
               </p>
               <div className="flex flex-wrap gap-2 pt-1">
@@ -170,7 +170,7 @@ export const SettingsPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-3 bg-purple-50 border border-purple-200 rounded-xl text-purple-900 text-[11px] leading-relaxed">
+            <div className="p-3 bg-th-lavender border border-th-lavenderBdr rounded-xl text-th-lavenderTxt text-[11px] leading-relaxed">
               <span className="font-bold">Hardware Roadmap:</span> ESP32 smart meter hardware code is
               strictly future scope. The REST API is already designed to receive automated ESP32 payloads
               with zero schema modifications required.

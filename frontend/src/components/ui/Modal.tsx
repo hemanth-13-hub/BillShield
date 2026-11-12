@@ -51,33 +51,33 @@ export const Modal: React.FC<ModalProps> = ({
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-navy-900/60 backdrop-blur-sm transition-opacity duration-150"
+        className="fixed inset-0 bg-charcoal-950/65 backdrop-blur-sm transition-opacity duration-150"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Modal Dialog */}
       <div
-        className={`relative w-full ${maxWidthStyles[maxWidth]} bg-white dark:bg-dark-card rounded-2xl shadow-2xl border border-slate-100 dark:border-dark-border overflow-hidden transition-opacity duration-150 z-10`}
+        className={`relative w-full ${maxWidthStyles[maxWidth]} bg-th-card rounded-2xl shadow-card border border-th-border overflow-hidden transition-opacity duration-150 z-10`}
       >
         {/* Header */}
         {(title || description) && (
-          <div className="p-6 pb-4 border-b border-slate-100 dark:border-dark-border flex items-start justify-between">
+          <div className="p-6 pb-4 border-b border-th-borderSub flex items-start justify-between">
             <div>
               {title && (
-                <h3 id="billshield-modal-title" className="text-lg font-bold text-navy-900 dark:text-dark-text tracking-tight">
+                <h3 id="billshield-modal-title" className="text-lg font-bold text-th-text tracking-tight">
                   {title}
                 </h3>
               )}
               {description && (
-                <p className="text-xs text-slate-500 dark:text-dark-muted mt-1">{description}</p>
+                <p className="text-xs text-th-textMuted mt-1">{description}</p>
               )}
             </div>
             <button
               type="button"
               onClick={onClose}
               aria-label="Close modal"
-              className="text-slate-400 hover:text-navy-900 dark:hover:text-white rounded-lg p-1 transition-colors"
+              className="text-th-textMuted hover:text-th-text hover:bg-th-highlight rounded-lg p-1 transition-colors"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -91,7 +91,7 @@ export const Modal: React.FC<ModalProps> = ({
 
         {/* Footer */}
         {footer && (
-          <div className="p-4 px-6 bg-slate-50 dark:bg-navy-900/40 border-t border-slate-100 dark:border-dark-border flex items-center justify-end gap-3">
+          <div className="p-4 px-6 bg-th-surface border-t border-th-borderSub flex items-center justify-end gap-3">
             {footer}
           </div>
         )}

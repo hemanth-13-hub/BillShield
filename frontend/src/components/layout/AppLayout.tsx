@@ -43,12 +43,12 @@ export const AppLayout: React.FC = () => {
   const currentPeriod = billingPeriods.find((p) => p.id === selectedPeriodId);
 
   return (
-    <div className="min-h-screen bg-surface-bg dark:bg-dark-bg flex transition-colors duration-150">
+    <div className="min-h-screen bg-th-bg text-th-text flex transition-colors duration-150">
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
 
-      {/* Dark Navy Sidebar */}
+      {/* Navigation Sidebar */}
       <Sidebar />
 
       {/* Main Content Area (Offset for desktop sidebar and mobile header/bottom nav) */}
@@ -88,16 +88,16 @@ export const AppLayout: React.FC = () => {
         }
       >
         <div className="space-y-4">
-          <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 leading-relaxed font-medium">
+          <div className="p-3 bg-th-warnBg border border-th-warnBdr rounded-xl text-xs text-th-warnTxt leading-relaxed font-medium">
             <span className="font-bold">⚠️ Non-negotiable Transparency Rule:</span> All data created
             by this generator is stamped with the <span className="underline font-bold">Simulated Demo Data</span> source tag. It will never be presented as physical sensor data.
           </div>
 
           <div>
-            <span className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+            <span className="block text-xs font-semibold text-th-textSub mb-1">
               Billing Period
             </span>
-            <p className="text-sm font-bold text-navy-900 dark:text-dark-text bg-slate-50 dark:bg-slate-800 p-2.5 rounded-xl border border-slate-200 dark:border-dark-border">
+            <p className="text-sm font-bold text-th-text bg-th-surface p-2.5 rounded-xl border border-th-border">
               {currentPeriod ? `${currentPeriod.label} (${currentPeriod.period_start} to ${currentPeriod.period_end})` : "Select in header"}
             </p>
           </div>

@@ -47,10 +47,10 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       >
         {toasts.map((t) => {
           const typeStyles = {
-            success: "bg-emerald-50 border-emerald-200 text-emerald-900",
-            error: "bg-rose-50 border-rose-200 text-rose-900",
-            info: "bg-blue-50 border-blue-200 text-blue-900",
-            warning: "bg-amber-50 border-amber-200 text-amber-900",
+            success: "bg-th-matchBg border-th-matchBdr text-th-matchTxt",
+            error:   "bg-th-errBg border-th-errBdr text-th-errTxt",
+            info:    "bg-th-lavender border-th-lavenderBdr text-th-lavenderTxt",
+            warning: "bg-th-warnBg border-th-warnBdr text-th-warnTxt",
           };
 
           return (

@@ -26,8 +26,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useRoom } from "../context/RoomContext";
+import { useDarkMode } from "../context/DarkModeContext";
 import { useToast } from "../components/ui/Toast";
 import { api } from "../api/client";
+import { getChartPalette } from "../theme/tokens";
 import {
   Card,
   CardHeader,
@@ -44,13 +46,6 @@ import type {
   RoomReading,
   RoomTypeComparisonResponse,
 } from "../types/api";
-
-// Consistent BillShield dashboard palette
-const ROOM_BLUE = "#2563EB";
-const HOSTEL_TEAL = "#0D9488";
-const DIFF_AMBER = "#F59E0B";
-const AC_BLUE = "#2563EB";
-const NON_AC_GREEN = "#10B981";
 
 type Granularity = "hourly" | "daily" | "weekly" | "monthly";
 
@@ -80,8 +75,8 @@ const AnalyticsTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label
   }
 
   return (
-    <div className="bg-navy-900 text-white rounded-2xl shadow-card px-4 py-3 text-xs min-w-[190px] border border-navy-700">
-      <p className="font-bold text-slate-300 mb-2 text-[11px] uppercase tracking-wider truncate max-w-[210px]">
+    <div className="bg-th-surface text-th-text rounded-2xl shadow-card px-4 py-3 text-xs min-w-[190px] border border-th-border">
+      <p className="font-bold text-th-textSub mb-2 text-[11px] uppercase tracking-wider truncate max-w-[210px]">
         {label}
       </p>
       {payload.map((entry, idx) => (
@@ -91,17 +86,17 @@ const AnalyticsTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label
               className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
               style={{ backgroundColor: entry.color }}
             />
-            <span className="text-slate-300 truncate max-w-[130px]">{entry.name}</span>
+            <span className="text-th-textSub truncate max-w-[130px]">{entry.name}</span>
           </span>
-          <span className="font-mono font-bold text-white">
+          <span className="font-mono font-bold text-th-text">
             {typeof entry.value === "number" ? entry.value.toFixed(2) : entry.value} kWh
           </span>
         </div>
       ))}
       {diffDisplay !== null && (
-        <div className="mt-1.5 pt-1.5 border-t border-navy-700 flex items-center justify-between gap-4 text-[11px]">
-          <span className="text-amber-300 font-semibold">{diffLabel ?? "Difference"}</span>
-          <span className="font-mono font-bold text-amber-300">
+        <div className="mt-1.5 pt-1.5 border-t border-th-borderSub flex items-center justify-between gap-4 text-[11px]">
+          <span className="text-th-warnTxt font-semibold">{diffLabel ?? "Difference"}</span>
+          <span className="font-mono font-bold text-th-warnTxt">
             {diffDisplay > 0 ? "+" : ""}
             {diffDisplay.toFixed(2)} kWh
           </span>
@@ -113,8 +108,8 @@ const AnalyticsTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label
 
 // ── Simulated Data Indicator Pill ─────────────────────────────────────────────
 const SimulatedBannerBadge: React.FC = () => (
-  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-400 text-[10px] font-extrabold uppercase tracking-wider">
-    <span className="w-1.5 h-1.5 rounded-full bg-amber-600" />
+  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-th-warnBg text-th-warnTxt border border-th-warnBdr text-[10px] font-extrabold uppercase tracking-wider">
+    <span className="w-1.5 h-1.5 rounded-full bg-th-warnSolid" />
     SIMULATED DATA
   </span>
 );
@@ -135,7 +130,9 @@ function shortTickLabel(label: string, granularity: Granularity): string {
 
 export const AnalyticsPage: React.FC = () => {
   const { selectedRoomId, selectedRoom, billingPeriods } = useRoom();
+  const { isDark } = useDarkMode();
   const { success, error: toastError } = useToast();
+  const chartColors = getChartPalette(isDark);
 
   // Granularity switcher: hourly | daily | weekly | monthly
   const [granularity, setGranularity] = useState<Granularity>("daily");
@@ -358,14 +355,14 @@ export const AnalyticsPage: React.FC = () => {
   const cumulativeHasSimulated = cumulativeSeries.some((c) => c.isSimulated);
 
   const axisProps = {
-    tick: { fontSize: 11, fill: "#64748B", fontFamily: "Inter, sans-serif" },
-    axisLine: { stroke: "#CBD5E1" },
+    tick: { fontSize: 11, fill: chartColors.axisTick, fontFamily: "Inter, sans-serif" },
+    axisLine: { stroke: chartColors.axisStroke },
     tickLine: false as const,
   };
 
   const gridProps = {
     strokeDasharray: "3 3" as const,
-    stroke: "#E2E8F0",
+    stroke: chartColors.gridStroke,
     vertical: false as const,
   };
 
@@ -374,10 +371,10 @@ export const AnalyticsPage: React.FC = () => {
       {/* Header & Quick Demo Dataset Action */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-navy-900 dark:text-dark-text tracking-tight">
+          <h1 className="text-2xl font-extrabold text-th-text tracking-tight">
             Electricity Analytics
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-muted mt-1">
+          <p className="text-xs sm:text-sm text-th-textMuted mt-1">
             {selectedRoom
               ? `Room #${selectedRoom.room_number} (${formatRoomType(selectedRoom.room_type)}) · ${formatHostelType(selectedRoom.hostel_type)} · Block ${selectedRoom.block}`
               : "Select a room to view electricity graphs"}
@@ -406,13 +403,13 @@ export const AnalyticsPage: React.FC = () => {
       {/* Prominent Demo & Sensor Integrity Notice */}
       <div
         role="note"
-        className="p-4 rounded-2xl bg-amber-50 border border-amber-300 text-amber-950 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+        className="p-4 rounded-2xl bg-th-warnBg border border-th-warnBdr text-th-warnTxt text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3"
       >
         <div>
-          <p className="font-extrabold uppercase tracking-wider text-amber-900 text-[11px]">
+          <p className="font-extrabold uppercase tracking-wider text-th-warnTxt text-[11px]">
             Analytics Data Integrity · No Physical Sensor Fabricated
           </p>
-          <p className="text-amber-900/90 mt-0.5 leading-relaxed">
+          <p className="text-th-warnTxt/90 mt-0.5 leading-relaxed">
             No real-time ESP32 sensor hardware is attached. Sample datasets generated for demonstration are
             explicitly labelled <strong>SIMULATED DATA</strong>, and hourly/daily/weekly curves represent
             interpolated estimates derived strictly from recorded billing period totals.
@@ -432,7 +429,7 @@ export const AnalyticsPage: React.FC = () => {
                 </CardTitle>
                 {seriesHasSimulated && <SimulatedBannerBadge />}
               </div>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-th-textMuted mt-0.5">
                 Room Sensor vs Hostel Meter trend lines with difference in kWh
               </p>
             </div>
@@ -441,7 +438,7 @@ export const AnalyticsPage: React.FC = () => {
             <div
               role="tablist"
               aria-label="Consumption chart granularity"
-              className="flex items-center p-1 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-dark-border self-start lg:self-auto"
+              className="flex items-center p-1 bg-th-surface rounded-xl border border-th-border self-start lg:self-auto"
             >
               {(["hourly", "daily", "weekly", "monthly"] as const).map((g) => (
                 <button
@@ -452,8 +449,8 @@ export const AnalyticsPage: React.FC = () => {
                   onClick={() => setGranularity(g)}
                   className={`px-3.5 py-1.5 text-xs font-bold rounded-lg capitalize transition-colors ${
                     granularity === g
-                      ? "bg-white dark:bg-dark-card text-navy-900 dark:text-dark-text shadow-xs border border-slate-200 dark:border-dark-border"
-                      : "text-slate-500 hover:text-navy-900 dark:hover:text-white"
+                      ? "bg-th-card text-th-text shadow-xs border border-th-border"
+                      : "text-th-textMuted hover:text-th-text"
                   }`}
                 >
                   {g}
@@ -463,10 +460,10 @@ export const AnalyticsPage: React.FC = () => {
           </div>
 
           {/* Date Filters + Difference Line Toggle */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-dark-border text-xs">
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-th-borderSub text-xs">
             <div className="flex flex-wrap items-center gap-2.5">
               <div className="flex items-center gap-1.5">
-                <label htmlFor="analytics-date-from" className="font-semibold text-slate-500">
+                <label htmlFor="analytics-date-from" className="font-semibold text-th-textSub">
                   From:
                 </label>
                 <input
@@ -474,11 +471,11 @@ export const AnalyticsPage: React.FC = () => {
                   type="date"
                   value={dateFrom}
                   onChange={(e) => setDateFrom(e.target.value)}
-                  className="border border-slate-200 dark:border-dark-border rounded-lg px-2.5 py-1 bg-white dark:bg-dark-card text-navy-900 dark:text-dark-text text-xs focus:ring-2 focus:ring-electric-500 focus:outline-none"
+                  className="border border-th-border rounded-lg px-2.5 py-1 bg-th-bg text-th-text text-xs focus:outline-none focus:border-th-accent"
                 />
               </div>
               <div className="flex items-center gap-1.5">
-                <label htmlFor="analytics-date-to" className="font-semibold text-slate-500">
+                <label htmlFor="analytics-date-to" className="font-semibold text-th-textSub">
                   To:
                 </label>
                 <input
@@ -486,7 +483,7 @@ export const AnalyticsPage: React.FC = () => {
                   type="date"
                   value={dateTo}
                   onChange={(e) => setDateTo(e.target.value)}
-                  className="border border-slate-200 dark:border-dark-border rounded-lg px-2.5 py-1 bg-white dark:bg-dark-card text-navy-900 dark:text-dark-text text-xs focus:ring-2 focus:ring-electric-500 focus:outline-none"
+                  className="border border-th-border rounded-lg px-2.5 py-1 bg-th-bg text-th-text text-xs focus:outline-none focus:border-th-accent"
                 />
               </div>
               {(dateFrom || dateTo) && (
@@ -496,7 +493,7 @@ export const AnalyticsPage: React.FC = () => {
                     setDateFrom("");
                     setDateTo("");
                   }}
-                  className="text-xs font-bold text-electric-600 hover:underline px-2 py-1"
+                  className="text-xs font-bold text-th-accentText hover:underline px-2 py-1"
                 >
                   Reset Dates
                 </button>
@@ -508,11 +505,11 @@ export const AnalyticsPage: React.FC = () => {
               role="switch"
               aria-checked={showDifferenceLine}
               onClick={() => setShowDifferenceLine((v) => !v)}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-lg border border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-slate-800 text-xs font-semibold text-navy-900 dark:text-dark-text hover:bg-slate-100"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-lg border border-th-border bg-th-surface text-xs font-semibold text-th-text hover:bg-th-highlight transition-colors"
             >
               <span
                 className="w-2.5 h-2.5 rounded-full"
-                style={{ backgroundColor: showDifferenceLine ? DIFF_AMBER : "#CBD5E1" }}
+                style={{ backgroundColor: showDifferenceLine ? chartColors.diffSeries : chartColors.axisStroke }}
               />
               <span>{showDifferenceLine ? "Hide Difference Line" : "Show Difference Line"}</span>
             </button>
@@ -521,8 +518,8 @@ export const AnalyticsPage: React.FC = () => {
 
         <CardContent className="space-y-4">
           {chartNote && (
-            <div className="p-3 bg-electric-50/70 dark:bg-electric-950/20 border border-electric-200 dark:border-electric-800 rounded-xl text-xs text-navy-900 dark:text-dark-muted">
-              <strong>Methodology:</strong> {chartNote}
+            <div className="p-3 bg-th-lavender border border-th-lavenderBdr rounded-xl text-xs text-th-textSub">
+              <strong className="text-th-lavenderTxt">Methodology:</strong> {chartNote}
               {granularity === "hourly" && filteredSeries.length > 72 && !dateFrom && !dateTo && (
                 <span> (Showing latest 72 hours; apply a date range filter above to inspect earlier dates.)</span>
               )}
@@ -547,21 +544,21 @@ export const AnalyticsPage: React.FC = () => {
             <>
               {/* Window Totals & Difference Strip */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-dark-border">
-                  <span className="text-slate-500 font-semibold block">Room Sensor (Filtered Window)</span>
-                  <span className="text-lg font-black font-mono text-electric-600">
+                <div className="p-3 rounded-xl bg-th-surface border border-th-border">
+                  <span className="text-th-textMuted font-semibold block">Room Sensor (Filtered Window)</span>
+                  <span className="text-lg font-black font-mono text-th-accentText">
                     {roomSeriesTotal.toFixed(2)} kWh
                   </span>
                 </div>
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-dark-border">
-                  <span className="text-slate-500 font-semibold block">Hostel Meter (Filtered Window)</span>
-                  <span className="text-lg font-black font-mono text-teal-700">
+                <div className="p-3 rounded-xl bg-th-highlight/70 border border-th-border">
+                  <span className="text-th-textMuted font-semibold block">Hostel Meter (Filtered Window)</span>
+                  <span className="text-lg font-black font-mono text-th-matchTxt">
                     {hostelSeriesTotal.toFixed(2)} kWh
                   </span>
                 </div>
-                <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200">
-                  <span className="text-amber-900 font-semibold block">Difference (Room − Hostel)</span>
-                  <span className="text-lg font-black font-mono text-amber-800">
+                <div className="p-3 rounded-xl bg-th-warnBg border border-th-warnBdr">
+                  <span className="text-th-warnTxt font-semibold block">Difference (Room − Hostel)</span>
+                  <span className="text-lg font-black font-mono text-th-warnTxt">
                     {seriesDiffTotal > 0 ? "+" : ""}
                     {seriesDiffTotal.toFixed(2)} kWh
                   </span>
@@ -582,7 +579,7 @@ export const AnalyticsPage: React.FC = () => {
                         position: "insideBottom",
                         offset: -12,
                         fontSize: 11,
-                        fill: "#64748B",
+                        fill: chartColors.axisTick,
                       }}
                       {...axisProps}
                     />
@@ -594,7 +591,7 @@ export const AnalyticsPage: React.FC = () => {
                         angle: -90,
                         position: "insideLeft",
                         fontSize: 11,
-                        fill: "#64748B",
+                        fill: chartColors.axisTick,
                       }}
                       {...axisProps}
                     />
@@ -605,7 +602,7 @@ export const AnalyticsPage: React.FC = () => {
                       type="monotone"
                       dataKey="roomKwh"
                       name={seriesHasSimulated ? "Room Sensor (SIMULATED DATA)" : "Room Sensor (kWh)"}
-                      stroke={ROOM_BLUE}
+                      stroke={chartColors.roomSeries}
                       strokeWidth={2.5}
                       dot={granularity === "monthly" || granularity === "weekly"}
                       activeDot={{ r: 5 }}
@@ -615,7 +612,7 @@ export const AnalyticsPage: React.FC = () => {
                       type="monotone"
                       dataKey="hostelKwh"
                       name={seriesHasSimulated ? "Hostel Meter (SIMULATED DATA)" : "Hostel Meter (kWh)"}
-                      stroke={HOSTEL_TEAL}
+                      stroke={chartColors.hostelSeries}
                       strokeWidth={2.5}
                       strokeDasharray="6 3"
                       dot={granularity === "monthly" || granularity === "weekly"}
@@ -627,7 +624,7 @@ export const AnalyticsPage: React.FC = () => {
                         type="monotone"
                         dataKey="diffKwh"
                         name="Difference (Room − Hostel kWh)"
-                        stroke={DIFF_AMBER}
+                        stroke={chartColors.diffSeries}
                         strokeWidth={2}
                         strokeDasharray="2 3"
                         dot={false}
@@ -650,7 +647,7 @@ export const AnalyticsPage: React.FC = () => {
             <div className="flex items-center justify-between gap-2 flex-wrap">
               <div>
                 <CardTitle>Cumulative Room Sensor vs Hostel Meter</CardTitle>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-th-textMuted mt-0.5">
                   Running cumulative consumption (kWh) across billing periods
                 </p>
               </div>
@@ -677,7 +674,7 @@ export const AnalyticsPage: React.FC = () => {
                         position: "insideBottom",
                         offset: -12,
                         fontSize: 11,
-                        fill: "#64748B",
+                        fill: chartColors.axisTick,
                       }}
                       {...axisProps}
                     />
@@ -689,7 +686,7 @@ export const AnalyticsPage: React.FC = () => {
                         angle: -90,
                         position: "insideLeft",
                         fontSize: 11,
-                        fill: "#64748B",
+                        fill: chartColors.axisTick,
                       }}
                       {...axisProps}
                     />
@@ -700,7 +697,7 @@ export const AnalyticsPage: React.FC = () => {
                       type="monotone"
                       dataKey="roomCumulativeKwh"
                       name={cumulativeHasSimulated ? "Room Cumulative (SIMULATED)" : "Room Sensor Cumulative"}
-                      stroke={ROOM_BLUE}
+                      stroke={chartColors.roomSeries}
                       strokeWidth={2.5}
                       dot={{ r: 4 }}
                       activeDot={{ r: 6 }}
@@ -709,7 +706,7 @@ export const AnalyticsPage: React.FC = () => {
                       type="monotone"
                       dataKey="hostelCumulativeKwh"
                       name={cumulativeHasSimulated ? "Hostel Cumulative (SIMULATED)" : "Hostel Meter Cumulative"}
-                      stroke={HOSTEL_TEAL}
+                      stroke={chartColors.hostelSeries}
                       strokeWidth={2.5}
                       strokeDasharray="6 3"
                       dot={{ r: 4 }}
@@ -729,7 +726,7 @@ export const AnalyticsPage: React.FC = () => {
             <div className="flex items-center justify-between gap-2 flex-wrap">
               <div>
                 <CardTitle>AC vs Non-AC Average Consumption</CardTitle>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-th-textMuted mt-0.5">
                   Monthly average consumption comparison (kWh)
                 </p>
               </div>
@@ -747,21 +744,21 @@ export const AnalyticsPage: React.FC = () => {
             ) : (
               <>
                 <div className="grid grid-cols-3 gap-2 text-xs">
-                  <div className="p-2.5 rounded-xl bg-electric-50/70 border border-electric-200">
-                    <span className="text-[10px] font-bold uppercase text-electric-800 block">AC Avg</span>
-                    <span className="font-mono font-black text-navy-900">
+                  <div className="p-2.5 rounded-xl bg-th-surface border border-th-border">
+                    <span className="text-[10px] font-bold uppercase text-th-textSub block">AC Avg</span>
+                    <span className="font-mono font-black text-th-text">
                       {roomTypeComp.ac_overall_avg.toFixed(1)} kWh
                     </span>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
-                    <span className="text-[10px] font-bold uppercase text-emerald-800 block">Non-AC Avg</span>
-                    <span className="font-mono font-black text-navy-900">
+                  <div className="p-2.5 rounded-xl bg-th-highlight border border-th-border">
+                    <span className="text-[10px] font-bold uppercase text-th-matchTxt block">Non-AC Avg</span>
+                    <span className="font-mono font-black text-th-text">
                       {roomTypeComp.non_ac_overall_avg.toFixed(1)} kWh
                     </span>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200">
-                    <span className="text-[10px] font-bold uppercase text-amber-800 block">Difference</span>
-                    <span className="font-mono font-black text-amber-900">
+                  <div className="p-2.5 rounded-xl bg-th-warnBg border border-th-warnBdr">
+                    <span className="text-[10px] font-bold uppercase text-th-warnTxt block">Difference</span>
+                    <span className="font-mono font-black text-th-warnTxt">
                       +{(roomTypeComp.ac_overall_avg - roomTypeComp.non_ac_overall_avg).toFixed(1)} kWh
                     </span>
                   </div>
@@ -779,7 +776,7 @@ export const AnalyticsPage: React.FC = () => {
                           position: "insideBottom",
                           offset: -12,
                           fontSize: 11,
-                          fill: "#64748B",
+                          fill: chartColors.axisTick,
                         }}
                         {...axisProps}
                       />
@@ -791,7 +788,7 @@ export const AnalyticsPage: React.FC = () => {
                           angle: -90,
                           position: "insideLeft",
                           fontSize: 11,
-                          fill: "#64748B",
+                          fill: chartColors.axisTick,
                         }}
                         {...axisProps}
                       />
@@ -802,7 +799,7 @@ export const AnalyticsPage: React.FC = () => {
                         type="monotone"
                         dataKey="ac_avg_kwh"
                         name={roomTypeComp.is_simulated_demo ? "AC Room Avg (SIMULATED DATA)" : "AC Room Avg"}
-                        stroke={AC_BLUE}
+                        stroke={chartColors.acSeries}
                         strokeWidth={2.5}
                         dot={{ r: 4 }}
                         activeDot={{ r: 6 }}
@@ -811,7 +808,7 @@ export const AnalyticsPage: React.FC = () => {
                         type="monotone"
                         dataKey="non_ac_avg_kwh"
                         name={roomTypeComp.is_simulated_demo ? "Non-AC Room Avg (SIMULATED DATA)" : "Non-AC Room Avg"}
-                        stroke={NON_AC_GREEN}
+                        stroke={chartColors.nonAcSeries}
                         strokeWidth={2.5}
                         strokeDasharray="6 3"
                         dot={{ r: 4 }}
@@ -821,7 +818,7 @@ export const AnalyticsPage: React.FC = () => {
                   </ResponsiveContainer>
                 </div>
 
-                <p className="text-[11px] text-slate-500 leading-relaxed">{roomTypeComp.note}</p>
+                <p className="text-[11px] text-th-textMuted leading-relaxed">{roomTypeComp.note}</p>
               </>
             )}
           </CardContent>

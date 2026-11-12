@@ -583,10 +583,10 @@ export const HistoryPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-navy-900 dark:text-dark-text tracking-tight">
+          <h1 className="text-2xl font-extrabold text-th-text tracking-tight">
             Reading History
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-muted mt-1">
+          <p className="text-xs sm:text-sm text-th-textMuted mt-1">
             {selectedRoom
               ? `Room #${selectedRoom.room_number} (${formatRoomType(selectedRoom.room_type)}) · ${formatHostelType(selectedRoom.hostel_type)} · Block ${selectedRoom.block} — Isolated Room Audit Log`
               : "Select a room to view reading history"}
@@ -609,50 +609,50 @@ export const HistoryPage: React.FC = () => {
 
       {/* Room Separation & Source Transparency Summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-4 rounded-2xl bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border shadow-card">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+        <div className="p-4 rounded-2xl bg-th-card border border-th-border shadow-soft">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-th-textMuted">
             Billing Periods Logged
           </p>
-          <p className="text-2xl font-extrabold text-navy-900 dark:text-dark-text tabular-nums mt-1">
+          <p className="text-2xl font-extrabold text-th-text tabular-nums mt-1">
             {records.length}
           </p>
-          <p className="text-[11px] text-slate-500 mt-0.5">
+          <p className="text-[11px] text-th-textMuted mt-0.5">
             Exclusive to Room #{selectedRoom?.room_number ?? "—"}
           </p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border shadow-card">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+        <div className="p-4 rounded-2xl bg-th-card border border-th-border shadow-soft">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-th-textMuted">
             Paired Dual Audits
           </p>
-          <p className="text-2xl font-extrabold text-electric-600 tabular-nums mt-1">
+          <p className="text-2xl font-extrabold text-th-accentText tabular-nums mt-1">
             {pairedCount}
           </p>
-          <p className="text-[11px] text-slate-500 mt-0.5">
+          <p className="text-[11px] text-th-textMuted mt-0.5">
             Both Room Sensor &amp; Hostel Meter
           </p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border shadow-card">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+        <div className="p-4 rounded-2xl bg-th-card border border-th-border shadow-soft">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-th-textMuted">
             Active Tariff &amp; Tolerance
           </p>
-          <p className="text-2xl font-extrabold text-navy-900 dark:text-dark-text tabular-nums mt-1">
+          <p className="text-2xl font-extrabold text-th-text tabular-nums mt-1">
             ₹{settings.rate_per_unit.toFixed(2)}/kWh
           </p>
-          <p className="text-[11px] text-slate-500 mt-0.5">
+          <p className="text-[11px] text-th-textMuted mt-0.5">
             ±{settings.tolerance_percent}% match window
           </p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border shadow-card">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+        <div className="p-4 rounded-2xl bg-th-card border border-th-border shadow-soft">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-th-textMuted">
             Simulated Entries
           </p>
-          <p className="text-2xl font-extrabold text-amber-600 tabular-nums mt-1">
+          <p className="text-2xl font-extrabold text-th-warnTxt tabular-nums mt-1">
             {simulatedCount}
           </p>
-          <p className="text-[11px] text-slate-500 mt-0.5">
+          <p className="text-[11px] text-th-textMuted mt-0.5">
             Clearly tagged SIMULATED DATA
           </p>
         </div>
@@ -666,7 +666,7 @@ export const HistoryPage: React.FC = () => {
               <CardTitle>
                 Reading History Log ({sortedRecords.length})
               </CardTitle>
-              <p className="text-xs text-slate-500 dark:text-dark-muted mt-0.5">
+              <p className="text-xs text-th-textMuted mt-0.5">
                 Paired per billing period with start/end readings, calculated units, bill amounts, timestamps &amp; status
               </p>
             </div>
@@ -678,31 +678,31 @@ export const HistoryPage: React.FC = () => {
                 placeholder="Search period (e.g. Oct 2026)..."
                 value={searchPeriod}
                 onChange={(e) => setSearchPeriod(e.target.value)}
-                className="text-xs rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-navy-900 dark:text-dark-text px-3 py-2 focus:outline-none focus:ring-2 focus:ring-electric-500"
+                className="text-xs rounded-xl border border-th-border bg-th-bg text-th-text placeholder:text-th-textMuted px-3 py-2 focus:outline-none focus:border-th-accent"
               />
 
               <select
                 aria-label="Filter by reading source"
                 value={sourceFilter}
                 onChange={(e) => setSourceFilter(e.target.value as ReadingSource | "all")}
-                className="text-xs font-semibold rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-navy-900 dark:text-dark-text px-3 py-2"
+                className="text-xs font-semibold rounded-xl border border-th-border bg-th-bg text-th-text px-3 py-2 focus:outline-none focus:border-th-accent"
               >
-                <option value="all">All Reading Sources</option>
-                <option value="Manual Entry">Manual Entry</option>
-                <option value="Simulated Demo Data">SIMULATED DATA</option>
-                <option value="Sensor (Future)">Sensor (Future)</option>
+                <option value="all" className="bg-th-card text-th-text">All Reading Sources</option>
+                <option value="Manual Entry" className="bg-th-card text-th-text">Manual Entry</option>
+                <option value="Simulated Demo Data" className="bg-th-card text-th-text">SIMULATED DATA</option>
+                <option value="Sensor (Future)" className="bg-th-card text-th-text">Sensor (Future)</option>
               </select>
 
               <select
                 aria-label="Filter by completeness"
                 value={streamFilter}
                 onChange={(e) => setStreamFilter(e.target.value as StreamFilter)}
-                className="text-xs font-semibold rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-navy-900 dark:text-dark-text px-3 py-2"
+                className="text-xs font-semibold rounded-xl border border-th-border bg-th-bg text-th-text px-3 py-2 focus:outline-none focus:border-th-accent"
               >
-                <option value="all">All Records</option>
-                <option value="paired">Paired Dual-Source Only</option>
-                <option value="room_only">Has Room Sensor</option>
-                <option value="hostel_only">Has Hostel Meter</option>
+                <option value="all" className="bg-th-card text-th-text">All Records</option>
+                <option value="paired" className="bg-th-card text-th-text">Paired Dual-Source Only</option>
+                <option value="room_only" className="bg-th-card text-th-text">Has Room Sensor</option>
+                <option value="hostel_only" className="bg-th-card text-th-text">Has Hostel Meter</option>
               </select>
 
               <div className="flex items-center gap-1.5">
@@ -710,18 +710,18 @@ export const HistoryPage: React.FC = () => {
                   aria-label="Sort reading history"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortBy)}
-                  className="flex-1 text-xs font-semibold rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-navy-900 dark:text-dark-text px-3 py-2"
+                  className="flex-1 text-xs font-semibold rounded-xl border border-th-border bg-th-bg text-th-text px-3 py-2 focus:outline-none focus:border-th-accent"
                 >
-                  <option value="date">Sort: Recorded Date</option>
-                  <option value="period">Sort: Billing Period</option>
-                  <option value="difference">Sort: Unit Difference</option>
+                  <option value="date" className="bg-th-card text-th-text">Sort: Recorded Date</option>
+                  <option value="period" className="bg-th-card text-th-text">Sort: Billing Period</option>
+                  <option value="difference" className="bg-th-card text-th-text">Sort: Unit Difference</option>
                 </select>
                 <button
                   type="button"
                   onClick={() => setSortDir((d) => (d === "desc" ? "asc" : "desc"))}
                   title={sortDir === "desc" ? "Descending (newest/largest first)" : "Ascending"}
                   aria-label="Toggle sort order"
-                  className="px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-xs font-bold text-navy-900 dark:text-dark-text hover:bg-slate-50"
+                  className="px-3 py-2 rounded-xl border border-th-border bg-th-bg text-xs font-bold text-th-text hover:bg-th-highlight transition-colors"
                 >
                   {sortDir === "desc" ? "↓" : "↑"}
                 </button>
@@ -767,7 +767,7 @@ export const HistoryPage: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-dark-border text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-dark-muted">
+                  <tr className="border-b border-th-border text-[11px] font-bold uppercase tracking-wider text-th-textMuted">
                     <th className="py-3 pr-3">Billing Period</th>
                     <th className="py-3 px-3">Room Sensor (Start → End)</th>
                     <th className="py-3 px-3">Hostel Meter (Start → End)</th>
@@ -778,22 +778,22 @@ export const HistoryPage: React.FC = () => {
                     <th className="py-3 pl-3 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-dark-border">
+                <tbody className="divide-y divide-th-borderSub">
                   {sortedRecords.map((rec) => (
                     <tr
                       key={rec.periodId}
-                      className="hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors align-top"
+                      className="hover:bg-th-highlight/50 transition-colors align-top"
                     >
                       {/* Billing Period */}
                       <td className="py-3.5 pr-3 whitespace-nowrap">
-                        <p className="font-bold text-navy-900 dark:text-dark-text">
+                        <p className="font-bold text-th-text">
                           {rec.periodLabel}
                         </p>
-                        <p className="text-[11px] text-slate-500 mt-0.5 tabular-nums">
+                        <p className="text-[11px] text-th-textMuted mt-0.5 tabular-nums">
                           {rec.periodStart} → {rec.periodEnd}
                         </p>
                         {rec.hasSimulated && (
-                          <span className="inline-block mt-1 px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 text-[9px] font-extrabold uppercase tracking-wider">
+                          <span className="inline-block mt-1 px-1.5 py-0.5 rounded bg-th-warnBg text-th-warnTxt border border-th-warnBdr text-[9px] font-extrabold uppercase tracking-wider">
                             SIMULATED DATA
                           </span>
                         )}
@@ -803,16 +803,16 @@ export const HistoryPage: React.FC = () => {
                       <td className="py-3.5 px-3 min-w-[170px]">
                         {rec.room ? (
                           <div className="space-y-1">
-                            <p className="font-mono text-xs text-slate-700 dark:text-slate-200 tabular-nums">
+                            <p className="font-mono text-xs text-th-textSub tabular-nums">
                               {rec.room.reading_start.toFixed(2)} → {rec.room.reading_end.toFixed(2)}
                             </p>
-                            <p className="font-extrabold text-electric-700 dark:text-electric-400 tabular-nums">
+                            <p className="font-extrabold text-th-accentText tabular-nums">
                               {rec.room.consumption.toFixed(2)} kWh
                             </p>
                             <Badge variant="source" sourceType={rec.room.source} size="sm" />
                           </div>
                         ) : (
-                          <span className="text-xs italic text-slate-400">
+                          <span className="text-xs italic text-th-textMuted">
                             Not entered
                           </span>
                         )}
@@ -822,18 +822,18 @@ export const HistoryPage: React.FC = () => {
                       <td className="py-3.5 px-3 min-w-[170px]">
                         {rec.hostel ? (
                           <div className="space-y-1">
-                            <p className="font-mono text-xs text-slate-700 dark:text-slate-200 tabular-nums">
+                            <p className="font-mono text-xs text-th-textSub tabular-nums">
                               {rec.hostel.reading_start != null && rec.hostel.reading_end != null
                                 ? `${rec.hostel.reading_start.toFixed(2)} → ${rec.hostel.reading_end.toFixed(2)}`
                                 : "Direct billed units"}
                             </p>
-                            <p className="font-extrabold text-teal-700 dark:text-teal-400 tabular-nums">
+                            <p className="font-extrabold text-th-matchTxt tabular-nums">
                               {rec.hostel.billed_units.toFixed(2)} kWh
                             </p>
                             <Badge variant="source" sourceType={rec.hostel.source} size="sm" />
                           </div>
                         ) : (
-                          <span className="text-xs italic text-slate-400">
+                          <span className="text-xs italic text-th-textMuted">
                             Not entered
                           </span>
                         )}
@@ -841,14 +841,14 @@ export const HistoryPage: React.FC = () => {
 
                       {/* Rate & Bill Amounts */}
                       <td className="py-3.5 px-3 whitespace-nowrap text-xs tabular-nums">
-                        <p className="text-slate-500">
-                          Rate: <span className="font-semibold text-navy-900 dark:text-dark-text">₹{rec.ratePerUnit.toFixed(2)}/kWh</span>
+                        <p className="text-th-textMuted">
+                          Rate: <span className="font-semibold text-th-text">₹{rec.ratePerUnit.toFixed(2)}/kWh</span>
                         </p>
                         <p className="mt-1">
-                          Room: <span className="font-bold text-navy-900 dark:text-dark-text">{formatCurrency(rec.roomBill)}</span>
+                          Room: <span className="font-bold text-th-text">{formatCurrency(rec.roomBill)}</span>
                         </p>
                         <p>
-                          Hostel: <span className="font-bold text-navy-900 dark:text-dark-text">{formatCurrency(rec.hostelBill)}</span>
+                          Hostel: <span className="font-bold text-th-text">{formatCurrency(rec.hostelBill)}</span>
                         </p>
                       </td>
 
@@ -856,35 +856,35 @@ export const HistoryPage: React.FC = () => {
                       <td className="py-3.5 px-3 whitespace-nowrap tabular-nums">
                         {rec.unitDifference !== null ? (
                           <div>
-                            <p className="font-extrabold text-navy-900 dark:text-dark-text">
+                            <p className="font-extrabold text-th-text">
                               {rec.unitDifference > 0 ? "+" : ""}
                               {rec.unitDifference.toFixed(2)} kWh
                             </p>
                             {rec.differencePercent !== null && (
-                              <p className="text-[11px] text-slate-500">
+                              <p className="text-[11px] text-th-textMuted">
                                 {rec.differencePercent.toFixed(1)}% variance
                               </p>
                             )}
                             {rec.billDifference !== null && (
-                              <p className="text-[11px] text-slate-500">
+                              <p className="text-[11px] text-th-textMuted">
                                 {rec.billDifference > 0 ? "+" : ""}
                                 {formatCurrency(rec.billDifference)}
                               </p>
                             )}
                           </div>
                         ) : (
-                          <span className="text-xs text-slate-400">—</span>
+                          <span className="text-xs text-th-textMuted">—</span>
                         )}
                       </td>
 
                       {/* Timestamps */}
-                      <td className="py-3.5 px-3 text-[11px] text-slate-600 dark:text-dark-muted min-w-[165px]">
+                      <td className="py-3.5 px-3 text-[11px] text-th-textSub min-w-[165px]">
                         <p>
-                          <span className="font-semibold text-slate-500">Room:</span>{" "}
+                          <span className="font-semibold text-th-textMuted">Room:</span>{" "}
                           {formatDateTime(rec.room?.recorded_at)}
                         </p>
                         <p className="mt-1">
-                          <span className="font-semibold text-slate-500">Hostel:</span>{" "}
+                          <span className="font-semibold text-th-textMuted">Hostel:</span>{" "}
                           {formatDateTime(rec.hostel?.recorded_at)}
                         </p>
                       </td>
@@ -906,21 +906,21 @@ export const HistoryPage: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => setDetailRecord(rec)}
-                            className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-navy-900 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition-colors"
+                            className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-th-elevated hover:bg-th-highlight text-th-text transition-colors"
                           >
                             View
                           </button>
                           <button
                             type="button"
                             onClick={() => openEditModal(rec)}
-                            className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-electric-50 hover:bg-electric-100 text-electric-700 dark:bg-electric-900/30 dark:text-electric-300 transition-colors"
+                            className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-th-lavender hover:bg-th-highlight text-th-lavenderTxt border border-th-lavenderBdr transition-colors"
                           >
                             Edit
                           </button>
                           <button
                             type="button"
                             onClick={() => openDeleteModal(rec)}
-                            className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-red-50 hover:bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400 transition-colors"
+                            className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-th-errBg hover:opacity-85 text-th-errTxt border border-th-errBdr transition-colors"
                           >
                             Delete
                           </button>
@@ -983,15 +983,15 @@ export const HistoryPage: React.FC = () => {
         {detailRecord && (
           <div className="space-y-4">
             {/* Status & Watermark Banner */}
-            <div className="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-dark-border">
-              <div className="text-xs text-slate-600 dark:text-slate-300">
-                <span className="font-bold text-navy-900 dark:text-white">Billing Window:</span>{" "}
+            <div className="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-th-surface border border-th-border">
+              <div className="text-xs text-th-textSub">
+                <span className="font-bold text-th-text">Billing Window:</span>{" "}
                 {detailRecord.periodStart} to {detailRecord.periodEnd} ·{" "}
                 <span className="font-semibold">Rate: ₹{detailRecord.ratePerUnit.toFixed(2)}/kWh</span>
               </div>
               <div className="flex items-center gap-2">
                 {detailRecord.hasSimulated && (
-                  <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-extrabold uppercase">
+                  <span className="px-2 py-0.5 rounded-full bg-th-warnBg text-th-warnTxt border border-th-warnBdr text-[10px] font-extrabold uppercase">
                     DEMO / SIMULATED DATA
                   </span>
                 )}
@@ -1008,9 +1008,9 @@ export const HistoryPage: React.FC = () => {
             {/* Dual Side-by-Side Comparison */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Room Sensor Card */}
-              <div className="p-4 rounded-xl border border-blue-200 bg-blue-50/40 dark:bg-blue-950/20 dark:border-blue-800/50 space-y-2.5">
+              <div className="p-4 rounded-xl border border-th-lavenderBdr bg-th-lavender/60 space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-electric-700 dark:text-electric-400">
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-th-lavenderTxt">
                     1. Room Sensor Reading
                   </h4>
                   {detailRecord.room && (
@@ -1019,46 +1019,46 @@ export const HistoryPage: React.FC = () => {
                 </div>
                 {detailRecord.room ? (
                   <dl className="grid grid-cols-2 gap-y-2 text-xs">
-                    <dt className="text-slate-500">Starting Reading</dt>
-                    <dd className="text-right font-mono font-semibold tabular-nums">
+                    <dt className="text-th-textMuted">Starting Reading</dt>
+                    <dd className="text-right font-mono font-semibold tabular-nums text-th-text">
                       {detailRecord.room.reading_start.toFixed(2)} kWh
                     </dd>
-                    <dt className="text-slate-500">Ending Reading</dt>
-                    <dd className="text-right font-mono font-semibold tabular-nums">
+                    <dt className="text-th-textMuted">Ending Reading</dt>
+                    <dd className="text-right font-mono font-semibold tabular-nums text-th-text">
                       {detailRecord.room.reading_end.toFixed(2)} kWh
                     </dd>
-                    <dt className="text-slate-500">Calculated Units</dt>
-                    <dd className="text-right font-extrabold text-electric-700 tabular-nums">
+                    <dt className="text-th-textMuted">Calculated Units</dt>
+                    <dd className="text-right font-extrabold text-th-accentText tabular-nums">
                       {detailRecord.room.consumption.toFixed(2)} kWh
                     </dd>
-                    <dt className="text-slate-500">Expected Bill</dt>
-                    <dd className="text-right font-bold tabular-nums">
+                    <dt className="text-th-textMuted">Expected Bill</dt>
+                    <dd className="text-right font-bold tabular-nums text-th-text">
                       {formatCurrency(detailRecord.roomBill)}
                     </dd>
-                    <dt className="text-slate-500">Timestamp</dt>
-                    <dd className="text-right text-[11px]">
+                    <dt className="text-th-textMuted">Timestamp</dt>
+                    <dd className="text-right text-[11px] text-th-textSub">
                       {formatDateTime(detailRecord.room.recorded_at)}
                     </dd>
                     {detailRecord.room.notes && (
                       <>
-                        <dt className="text-slate-500">Notes</dt>
-                        <dd className="text-right text-[11px] text-slate-600">
+                        <dt className="text-th-textMuted">Notes</dt>
+                        <dd className="text-right text-[11px] text-th-textSub">
                           {detailRecord.room.notes}
                         </dd>
                       </>
                     )}
                   </dl>
                 ) : (
-                  <p className="text-xs italic text-slate-400 py-4">
+                  <p className="text-xs italic text-th-textMuted py-4">
                     No Room Sensor reading recorded for this billing period.
                   </p>
                 )}
               </div>
 
               {/* Hostel Meter Card */}
-              <div className="p-4 rounded-xl border border-teal-200 bg-teal-50/40 dark:bg-teal-950/20 dark:border-teal-800/50 space-y-2.5">
+              <div className="p-4 rounded-xl border border-th-border bg-th-surface space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-teal-700 dark:text-teal-400">
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-th-matchTxt">
                     2. Hostel Meter Reading
                   </h4>
                   {detailRecord.hostel && (
@@ -1067,41 +1067,41 @@ export const HistoryPage: React.FC = () => {
                 </div>
                 {detailRecord.hostel ? (
                   <dl className="grid grid-cols-2 gap-y-2 text-xs">
-                    <dt className="text-slate-500">Starting Reading</dt>
-                    <dd className="text-right font-mono font-semibold tabular-nums">
+                    <dt className="text-th-textMuted">Starting Reading</dt>
+                    <dd className="text-right font-mono font-semibold tabular-nums text-th-text">
                       {detailRecord.hostel.reading_start != null
                         ? `${detailRecord.hostel.reading_start.toFixed(2)} kWh`
                         : "—"}
                     </dd>
-                    <dt className="text-slate-500">Ending Reading</dt>
-                    <dd className="text-right font-mono font-semibold tabular-nums">
+                    <dt className="text-th-textMuted">Ending Reading</dt>
+                    <dd className="text-right font-mono font-semibold tabular-nums text-th-text">
                       {detailRecord.hostel.reading_end != null
                         ? `${detailRecord.hostel.reading_end.toFixed(2)} kWh`
                         : "—"}
                     </dd>
-                    <dt className="text-slate-500">Calculated Units</dt>
-                    <dd className="text-right font-extrabold text-teal-700 tabular-nums">
+                    <dt className="text-th-textMuted">Calculated Units</dt>
+                    <dd className="text-right font-extrabold text-th-matchTxt tabular-nums">
                       {detailRecord.hostel.billed_units.toFixed(2)} kWh
                     </dd>
-                    <dt className="text-slate-500">Hostel Bill Amount</dt>
-                    <dd className="text-right font-bold tabular-nums">
+                    <dt className="text-th-textMuted">Hostel Bill Amount</dt>
+                    <dd className="text-right font-bold tabular-nums text-th-text">
                       {formatCurrency(detailRecord.hostelBill)}
                     </dd>
-                    <dt className="text-slate-500">Timestamp</dt>
-                    <dd className="text-right text-[11px]">
+                    <dt className="text-th-textMuted">Timestamp</dt>
+                    <dd className="text-right text-[11px] text-th-textSub">
                       {formatDateTime(detailRecord.hostel.recorded_at)}
                     </dd>
                     {detailRecord.hostel.notes && (
                       <>
-                        <dt className="text-slate-500">Notes</dt>
-                        <dd className="text-right text-[11px] text-slate-600">
+                        <dt className="text-th-textMuted">Notes</dt>
+                        <dd className="text-right text-[11px] text-th-textSub">
                           {detailRecord.hostel.notes}
                         </dd>
                       </>
                     )}
                   </dl>
                 ) : (
-                  <p className="text-xs italic text-slate-400 py-4">
+                  <p className="text-xs italic text-th-textMuted py-4">
                     No Hostel Meter reading recorded for this billing period.
                   </p>
                 )}
@@ -1109,34 +1109,34 @@ export const HistoryPage: React.FC = () => {
             </div>
 
             {/* Variance Summary & Disclaimer */}
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-dark-border text-xs space-y-2">
+            <div className="p-4 rounded-xl bg-th-surface border border-th-border text-xs space-y-2">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 tabular-nums">
                 <div>
-                  <p className="text-slate-500 text-[11px] uppercase font-bold">Unit Difference</p>
-                  <p className="text-base font-extrabold text-navy-900 dark:text-white">
+                  <p className="text-th-textMuted text-[11px] uppercase font-bold">Unit Difference</p>
+                  <p className="text-base font-extrabold text-th-text">
                     {detailRecord.unitDifference !== null
                       ? `${detailRecord.unitDifference > 0 ? "+" : ""}${detailRecord.unitDifference.toFixed(2)} kWh`
                       : "Pending Pair"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-slate-500 text-[11px] uppercase font-bold">Relative Variance</p>
-                  <p className="text-base font-extrabold text-navy-900 dark:text-white">
+                  <p className="text-th-textMuted text-[11px] uppercase font-bold">Relative Variance</p>
+                  <p className="text-base font-extrabold text-th-text">
                     {detailRecord.differencePercent !== null
                       ? `${detailRecord.differencePercent.toFixed(1)}%`
                       : "—"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-slate-500 text-[11px] uppercase font-bold">Bill Delta (Room - Hostel)</p>
-                  <p className="text-base font-extrabold text-navy-900 dark:text-white">
+                  <p className="text-th-textMuted text-[11px] uppercase font-bold">Bill Delta (Room - Hostel)</p>
+                  <p className="text-base font-extrabold text-th-text">
                     {detailRecord.billDifference !== null
                       ? `${detailRecord.billDifference > 0 ? "+" : ""}${formatCurrency(detailRecord.billDifference)}`
                       : "—"}
                   </p>
                 </div>
               </div>
-              <p className="text-[11px] text-slate-500 leading-relaxed pt-1 border-t border-slate-200 dark:border-dark-border">
+              <p className="text-[11px] text-th-textMuted leading-relaxed pt-2 border-t border-th-borderSub">
                 Verification note: Differences indicate variance between two independent sources over the same billing
                 window and do not automatically indicate fraud; boundary equipment (corridor/common lines or CT accuracy)
                 must be inspected first.
@@ -1158,7 +1158,7 @@ export const HistoryPage: React.FC = () => {
           <form onSubmit={validateAndProceedEdit} className="space-y-4">
             {/* Switch between Room Sensor & Hostel Meter if both exist */}
             {editRecord.room && editRecord.hostel && (
-              <div className="flex gap-2 p-1 rounded-xl bg-slate-100 dark:bg-slate-800">
+              <div className="flex gap-2 p-1 rounded-xl bg-th-surface border border-th-border">
                 {(["room", "hostel"] as EditTargetType[]).map((t) => (
                   <button
                     key={t}
@@ -1166,8 +1166,8 @@ export const HistoryPage: React.FC = () => {
                     onClick={() => populateEditFields(editRecord, t)}
                     className={`flex-1 py-2 rounded-lg text-xs font-bold transition-colors ${
                       editTargetType === t
-                        ? "bg-white dark:bg-dark-card text-navy-900 dark:text-white shadow-sm"
-                        : "text-slate-500 hover:text-navy-900"
+                        ? "bg-th-card text-th-text shadow-xs border border-th-border"
+                        : "text-th-textMuted hover:text-th-text"
                     }`}
                   >
                     {t === "room" ? "1. Room Sensor Reading" : "2. Hostel Meter Reading"}
@@ -1177,8 +1177,8 @@ export const HistoryPage: React.FC = () => {
             )}
 
             {/* Locked Source Banner */}
-            <div className="flex items-center justify-between px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-dark-border text-xs">
-              <span className="font-semibold text-slate-600 dark:text-slate-300">
+            <div className="flex items-center justify-between px-3 py-2 rounded-xl bg-th-surface border border-th-border text-xs">
+              <span className="font-semibold text-th-textSub">
                 Origin Tag (Immutable):
               </span>
               <Badge
@@ -1257,11 +1257,11 @@ export const HistoryPage: React.FC = () => {
                   />
                 </div>
 
-                <div className="p-3 rounded-xl bg-electric-50/70 dark:bg-electric-900/20 border border-electric-200 text-xs flex items-center justify-between">
-                  <span className="text-slate-600 dark:text-slate-300 font-medium">
+                <div className="p-3 rounded-xl bg-th-highlight border border-th-border text-xs flex items-center justify-between">
+                  <span className="text-th-textSub font-medium">
                     Recalculated Units Preview:
                   </span>
-                  <span className="font-extrabold text-electric-700 dark:text-electric-300 tabular-nums">
+                  <span className="font-extrabold text-th-accentText tabular-nums">
                     {editPreviewUnits !== null
                       ? `${editPreviewUnits.toFixed(2)} kWh (${formatCurrency(
                           editPreviewUnits * settings.rate_per_unit
@@ -1271,7 +1271,7 @@ export const HistoryPage: React.FC = () => {
                 </div>
 
                 {editError && (
-                  <p className="text-xs font-semibold text-red-600 bg-red-50 border border-red-200 rounded-xl p-2.5">
+                  <p className="text-xs font-semibold text-th-errTxt bg-th-errBg border border-th-errBdr rounded-xl p-2.5">
                     {editError}
                   </p>
                 )}
@@ -1293,7 +1293,7 @@ export const HistoryPage: React.FC = () => {
             ) : (
               /* Step 2: Explicit Confirmation Panel */
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-amber-50 border border-amber-300 text-amber-950 text-xs space-y-2">
+                <div className="p-4 rounded-xl bg-th-warnBg border border-th-warnBdr text-th-warnTxt text-xs space-y-2">
                   <p className="font-extrabold uppercase tracking-wider text-[11px]">
                     Confirm Record Update
                   </p>
@@ -1326,7 +1326,7 @@ export const HistoryPage: React.FC = () => {
                 </div>
 
                 {editError && (
-                  <p className="text-xs font-semibold text-red-600 bg-red-50 border border-red-200 rounded-xl p-2.5">
+                  <p className="text-xs font-semibold text-th-errTxt bg-th-errBg border border-th-errBdr rounded-xl p-2.5">
                     {editError}
                   </p>
                 )}
@@ -1389,16 +1389,16 @@ export const HistoryPage: React.FC = () => {
       >
         {deleteRecord && (
           <div className="space-y-3 text-xs">
-            <p className="text-slate-600 dark:text-slate-300">
+            <p className="text-th-textSub">
               Room #{selectedRoom?.room_number} · Billing Period:{" "}
-              <strong className="text-navy-900 dark:text-white">
+              <strong className="text-th-text">
                 {deleteRecord.periodLabel}
               </strong>
             </p>
 
             {deleteRecord.room && deleteRecord.hostel ? (
               <div className="space-y-2">
-                <p className="font-semibold text-slate-700 dark:text-slate-200">
+                <p className="font-semibold text-th-text">
                   Select which entry to delete:
                 </p>
                 {(
@@ -1427,8 +1427,8 @@ export const HistoryPage: React.FC = () => {
                     key={opt.value}
                     className={`flex items-center gap-2.5 p-3 rounded-xl border cursor-pointer transition-colors ${
                       deleteScope === opt.value
-                        ? "border-red-400 bg-red-50/70 dark:bg-red-900/20"
-                        : "border-slate-200 dark:border-dark-border"
+                        ? "border-th-errSolid bg-th-errBg"
+                        : "border-th-border bg-th-card hover:bg-th-surface"
                     }`}
                   >
                     <input
@@ -1436,16 +1436,16 @@ export const HistoryPage: React.FC = () => {
                       name="deleteScope"
                       checked={deleteScope === opt.value}
                       onChange={() => setDeleteScope(opt.value)}
-                      className="text-red-600 focus:ring-red-500"
+                      className="text-th-errSolid"
                     />
-                    <span className="font-medium text-navy-900 dark:text-dark-text">
+                    <span className="font-medium text-th-text">
                       {opt.label}
                     </span>
                   </label>
                 ))}
               </div>
             ) : (
-              <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-900">
+              <div className="p-3 rounded-xl bg-th-errBg border border-th-errBdr text-th-errTxt">
                 Permanently removing the{" "}
                 <strong>
                   {deleteRecord.room ? "Room Sensor" : "Hostel Meter"}

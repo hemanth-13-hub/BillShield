@@ -66,27 +66,27 @@ export const ComparePage: React.FC = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-navy-900 dark:text-dark-text tracking-tight">
+          <h1 className="text-2xl font-extrabold text-th-text tracking-tight">
             Dual Meter Comparison
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-muted mt-1">
+          <p className="text-xs sm:text-sm text-th-textMuted mt-1">
             Compare independent Room Sensor consumption against Hostel Meter billing records for{" "}
-            <strong className="text-navy-900 dark:text-dark-text">Room #{selectedRoom?.room_number ?? "—"}</strong>.
+            <strong className="text-th-text">Room #{selectedRoom?.room_number ?? "—"}</strong>.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <label htmlFor="compare-period-select" className="text-xs font-semibold text-slate-500">
+          <label htmlFor="compare-period-select" className="text-xs font-semibold text-th-textMuted">
             Period:
           </label>
           <select
             id="compare-period-select"
             value={selectedPeriodId || ""}
             onChange={(e) => setSelectedPeriodId(Number(e.target.value))}
-            className="text-xs sm:text-sm font-bold bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border rounded-xl px-3 py-2 text-navy-900 dark:text-dark-text focus:ring-2 focus:ring-electric-500 focus:outline-none shadow-xs"
+            className="text-xs sm:text-sm font-bold bg-th-card border border-th-border rounded-xl px-3 py-2 text-th-text focus:outline-none focus:border-th-accent shadow-xs"
           >
             {billingPeriods.map((bp) => (
-              <option key={bp.id} value={bp.id}>
+              <option key={bp.id} value={bp.id} className="bg-th-card text-th-text">
                 {bp.label}
               </option>
             ))}
@@ -97,10 +97,10 @@ export const ComparePage: React.FC = () => {
       {/* Hardware Honesty Notice */}
       <div
         role="note"
-        className="p-3.5 rounded-2xl bg-slate-50 dark:bg-dark-card border border-slate-200 dark:border-dark-border text-xs text-slate-600 dark:text-dark-muted flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+        className="p-3.5 rounded-2xl bg-th-surface border border-th-border text-xs text-th-textSub flex flex-col sm:flex-row sm:items-center justify-between gap-2"
       >
         <span>
-          <strong>Measurement Status:</strong> Manual demo entry mode — no physical ESP32 energy sensor is currently connected.
+          <strong className="text-th-text">Measurement Status:</strong> Manual demo entry mode — no physical ESP32 energy sensor is currently connected.
         </span>
         {hasSimulated && <Badge variant="source" sourceType="Simulated Demo Data" size="sm" />}
       </div>
@@ -108,7 +108,7 @@ export const ComparePage: React.FC = () => {
       {hasSimulated && (
         <div
           role="alert"
-          className="p-4 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 text-xs leading-relaxed"
+          className="p-4 rounded-2xl bg-th-warnBg border-2 border-th-warnBdr text-th-warnTxt text-xs leading-relaxed"
         >
           <strong>⚠️ SIMULATED DATA Notice:</strong> Sample readings tagged{" "}
           <strong className="underline">SIMULATED DATA</strong> are shown for demonstration purposes only and must
@@ -125,7 +125,7 @@ export const ComparePage: React.FC = () => {
           </div>
         </div>
       ) : errorMessage || !comparison ? (
-        <Card className="p-8 text-center border-dashed border-2 border-slate-200">
+        <Card className="p-8 text-center border-dashed border-2 border-th-border">
           <EmptyState
             title="Dual Meter Readings Incomplete for This Period"
             description={
@@ -138,30 +138,30 @@ export const ComparePage: React.FC = () => {
         </Card>
       ) : (
         <div className="space-y-6">
-          {/* Main Verdict Hero Card — Non-accusatory status indicator */}
+          {/* Main Verdict Hero Card */}
           <Card
             className={`p-6 sm:p-8 rounded-3xl border shadow-card ${
               comparison.verdict === "Readings Match"
-                ? "bg-emerald-50/70 border-emerald-200"
+                ? "bg-th-matchBg border-th-matchBdr"
                 : comparison.verdict === "Minor Variation"
-                ? "bg-amber-50/70 border-amber-200"
-                : "bg-rose-50/70 border-rose-200"
+                ? "bg-th-warnBg border-th-warnBdr"
+                : "bg-th-errBg border-th-errBdr"
             }`}
           >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                  <span className="text-xs font-bold uppercase tracking-wider text-th-textSub">
                     Period Aligned: {comparison.billing_period_label} ({comparison.period_start} to {comparison.period_end})
                   </span>
                 </div>
                 <div className="flex items-center gap-3 flex-wrap">
-                  <h2 className="text-2xl sm:text-3xl font-black text-navy-900 tracking-tight">
+                  <h2 className="text-2xl sm:text-3xl font-black text-th-text tracking-tight">
                     {comparison.verdict}
                   </h2>
                   <Badge variant="status" statusType={comparison.verdict} size="md" />
                 </div>
-                <p className="mt-2 text-xs sm:text-sm text-slate-600 max-w-xl leading-relaxed">
+                <p className="mt-2 text-xs sm:text-sm text-th-textSub max-w-xl leading-relaxed">
                   {comparison.verdict === "Readings Match"
                     ? `The unit difference of ${Math.abs(comparison.difference_percent).toFixed(2)}% falls within the configured ±${comparison.tolerance_percent}% tolerance threshold.`
                     : comparison.verdict === "Minor Variation"
@@ -170,15 +170,15 @@ export const ComparePage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col items-start md:items-end gap-1.5 bg-white/90 p-4 rounded-2xl border border-slate-200 shadow-xs min-w-[170px]">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              <div className="flex flex-col items-start md:items-end gap-1.5 bg-th-card p-4 rounded-2xl border border-th-border shadow-xs min-w-[170px]">
+                <span className="text-xs font-semibold text-th-textMuted uppercase tracking-wider">
                   Difference in Units
                 </span>
-                <span className="text-2xl font-black text-navy-900 font-mono">
+                <span className="text-2xl font-black text-th-text font-mono">
                   {comparison.difference_units > 0 ? "+" : ""}
                   {comparison.difference_units.toFixed(2)} kWh
                 </span>
-                <span className="text-xs font-bold text-slate-600 font-mono">
+                <span className="text-xs font-bold text-th-textSub font-mono">
                   ({comparison.difference_percent > 0 ? "+" : ""}
                   {comparison.difference_percent.toFixed(2)}% · ₹{(comparison.room_bill - comparison.hostel_bill).toFixed(2)})
                 </span>
@@ -189,36 +189,36 @@ export const ComparePage: React.FC = () => {
           {/* Side-by-Side Comparison Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* 1. Room Sensor Reading */}
-            <Card className="border-t-4 border-t-electric-600">
+            <Card className="border-t-4 border-t-th-accent">
               <CardHeader>
                 <div className="flex items-center justify-between gap-2">
                   <CardTitle>1. Room Sensor Reading</CardTitle>
                   <Badge variant="source" sourceType={comparison.room_reading_source} size="sm" />
                 </div>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-th-textMuted mt-1">
                   Independent room sensor boundary (Room #{selectedRoom?.room_number})
                 </p>
               </CardHeader>
               <CardContent className="space-y-3 text-xs">
-                <div className="flex items-baseline justify-between border-b border-slate-100 dark:border-dark-border pb-2.5">
-                  <span className="text-slate-500 font-medium">Starting → Ending Reading</span>
-                  <span className="font-mono font-bold text-navy-900 dark:text-dark-text">
+                <div className="flex items-baseline justify-between border-b border-th-borderSub pb-2.5">
+                  <span className="text-th-textMuted font-medium">Starting → Ending Reading</span>
+                  <span className="font-mono font-bold text-th-text">
                     {comparison.room_reading_start.toFixed(2)} → {comparison.room_reading_end.toFixed(2)} kWh
                   </span>
                 </div>
-                <div className="flex items-baseline justify-between border-b border-slate-100 dark:border-dark-border pb-2.5">
-                  <span className="text-slate-500 font-medium">Consumption (End − Start)</span>
-                  <span className="text-xl font-black text-navy-900 dark:text-dark-text font-mono">
+                <div className="flex items-baseline justify-between border-b border-th-borderSub pb-2.5">
+                  <span className="text-th-textMuted font-medium">Consumption (End − Start)</span>
+                  <span className="text-xl font-black text-th-text font-mono">
                     {comparison.room_units.toFixed(2)} <span className="text-xs font-normal">kWh</span>
                   </span>
                 </div>
-                <div className="flex items-baseline justify-between border-b border-slate-100 dark:border-dark-border pb-2.5">
-                  <span className="text-slate-500 font-medium">Date &amp; Time Recorded</span>
-                  <span className="font-mono text-slate-600">{formatDateTime(comparison.room_recorded_at)}</span>
+                <div className="flex items-baseline justify-between border-b border-th-borderSub pb-2.5">
+                  <span className="text-th-textMuted font-medium">Date &amp; Time Recorded</span>
+                  <span className="font-mono text-th-textSub">{formatDateTime(comparison.room_recorded_at)}</span>
                 </div>
                 <div className="flex items-baseline justify-between pt-1">
-                  <span className="font-bold text-navy-900 dark:text-dark-text">Calculated Bill (@ ₹{comparison.rate_per_unit.toFixed(2)})</span>
-                  <span className="text-xl font-black text-electric-600 font-mono">
+                  <span className="font-bold text-th-text">Calculated Bill (@ ₹{comparison.rate_per_unit.toFixed(2)})</span>
+                  <span className="text-xl font-black text-th-accentText font-mono">
                     ₹{comparison.room_bill.toFixed(2)}
                   </span>
                 </div>
@@ -226,38 +226,38 @@ export const ComparePage: React.FC = () => {
             </Card>
 
             {/* 2. Hostel Meter Reading */}
-            <Card className="border-t-4 border-t-navy-900">
+            <Card className="border-t-4 border-t-th-secBtn">
               <CardHeader>
                 <div className="flex items-center justify-between gap-2">
                   <CardTitle>2. Hostel Meter Reading</CardTitle>
                   <Badge variant="source" sourceType={comparison.hostel_reading_source} size="sm" />
                 </div>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-th-textMuted mt-1">
                   Existing hostel meter used for billing
                 </p>
               </CardHeader>
               <CardContent className="space-y-3 text-xs">
-                <div className="flex items-baseline justify-between border-b border-slate-100 dark:border-dark-border pb-2.5">
-                  <span className="text-slate-500 font-medium">Starting → Ending Reading</span>
-                  <span className="font-mono font-bold text-navy-900 dark:text-dark-text">
+                <div className="flex items-baseline justify-between border-b border-th-borderSub pb-2.5">
+                  <span className="text-th-textMuted font-medium">Starting → Ending Reading</span>
+                  <span className="font-mono font-bold text-th-text">
                     {comparison.hostel_reading_start != null && comparison.hostel_reading_end != null
                       ? `${comparison.hostel_reading_start.toFixed(2)} → ${comparison.hostel_reading_end.toFixed(2)} kWh`
                       : "Direct unit entry"}
                   </span>
                 </div>
-                <div className="flex items-baseline justify-between border-b border-slate-100 dark:border-dark-border pb-2.5">
-                  <span className="text-slate-500 font-medium">Consumption (End − Start)</span>
-                  <span className="text-xl font-black text-navy-900 dark:text-dark-text font-mono">
+                <div className="flex items-baseline justify-between border-b border-th-borderSub pb-2.5">
+                  <span className="text-th-textMuted font-medium">Consumption (End − Start)</span>
+                  <span className="text-xl font-black text-th-text font-mono">
                     {comparison.hostel_units.toFixed(2)} <span className="text-xs font-normal">kWh</span>
                   </span>
                 </div>
-                <div className="flex items-baseline justify-between border-b border-slate-100 dark:border-dark-border pb-2.5">
-                  <span className="text-slate-500 font-medium">Date &amp; Time Recorded</span>
-                  <span className="font-mono text-slate-600">{formatDateTime(comparison.hostel_recorded_at)}</span>
+                <div className="flex items-baseline justify-between border-b border-th-borderSub pb-2.5">
+                  <span className="text-th-textMuted font-medium">Date &amp; Time Recorded</span>
+                  <span className="font-mono text-th-textSub">{formatDateTime(comparison.hostel_recorded_at)}</span>
                 </div>
                 <div className="flex items-baseline justify-between pt-1">
-                  <span className="font-bold text-navy-900 dark:text-dark-text">Hostel Billed Amount</span>
-                  <span className="text-xl font-black text-navy-900 dark:text-dark-text font-mono">
+                  <span className="font-bold text-th-text">Hostel Billed Amount</span>
+                  <span className="text-xl font-black text-th-text font-mono">
                     ₹{comparison.hostel_bill.toFixed(2)}
                   </span>
                 </div>
@@ -266,11 +266,11 @@ export const ComparePage: React.FC = () => {
           </div>
 
           {/* Measurement Boundary & Billing Period Alignment Explanation */}
-          <Card className="bg-electric-50/50 dark:bg-dark-card border-electric-200 dark:border-dark-border">
-            <CardHeader>
+          <Card className="bg-th-lavender border-th-lavenderBdr">
+            <CardHeader className="border-th-lavenderBdr">
               <CardTitle>Electrical Boundary &amp; Billing Period Alignment Requirement</CardTitle>
             </CardHeader>
-            <CardContent className="text-xs text-slate-600 dark:text-dark-muted leading-relaxed space-y-2">
+            <CardContent className="text-xs text-th-textSub leading-relaxed space-y-2">
               <p>
                 For an accurate verification result, both the <strong>Room Sensor Reading</strong> and the{" "}
                 <strong>Hostel Meter Reading</strong> must satisfy two technical prerequisites:
@@ -290,10 +290,10 @@ export const ComparePage: React.FC = () => {
           </Card>
 
           {/* Bottom Actions */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-white dark:bg-dark-card rounded-2xl border border-slate-200 dark:border-dark-border">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-th-card rounded-2xl border border-th-border">
             <div>
-              <p className="text-xs font-bold text-navy-900 dark:text-dark-text">Need an official audit printout?</p>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-xs font-bold text-th-text">Need an official audit printout?</p>
+              <p className="text-[11px] text-th-textMuted">
                 Export the verification report preserving all source labels and dual meter readings.
               </p>
             </div>

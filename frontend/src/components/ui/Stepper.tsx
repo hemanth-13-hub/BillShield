@@ -30,10 +30,10 @@ export const Stepper: React.FC<StepperProps> = ({
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-colors duration-200 ${
                   isCompleted
-                    ? "bg-electric-600 text-white shadow-sm"
+                    ? "bg-th-accent text-th-onAccent shadow-xs"
                     : isCurrent
-                    ? "bg-navy-900 text-white ring-4 ring-electric-100 shadow-sm"
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700"
+                    ? "bg-th-accent text-th-onAccent ring-4 ring-th-highlight shadow-xs"
+                    : "bg-th-elevated text-th-textMuted border border-th-border"
                 }`}
               >
                 {isCompleted ? (
@@ -47,16 +47,16 @@ export const Stepper: React.FC<StepperProps> = ({
               <span
                 className={`mt-2 text-xs font-semibold whitespace-nowrap ${
                   isCurrent
-                    ? "text-navy-900 dark:text-white font-bold"
+                    ? "text-th-text font-bold"
                     : isCompleted
-                    ? "text-slate-700 dark:text-slate-300"
-                    : "text-slate-400"
+                    ? "text-th-textSub"
+                    : "text-th-textMuted"
                 }`}
               >
                 {step.title}
               </span>
               {step.description && (
-                <span className="hidden sm:block text-[10px] text-slate-400">
+                <span className="hidden sm:block text-[10px] text-th-textMuted">
                   {step.description}
                 </span>
               )}
@@ -68,7 +68,7 @@ export const Stepper: React.FC<StepperProps> = ({
               {idx > 0 && (
                 <div
                   className={`flex-1 h-0.5 transition-colors duration-200 mx-2 ${
-                    idx <= currentStep ? "bg-electric-600" : "bg-slate-200 dark:bg-slate-700"
+                    idx <= currentStep ? "bg-th-accent" : "bg-th-border"
                   }`}
                 />
               )}
@@ -78,7 +78,7 @@ export const Stepper: React.FC<StepperProps> = ({
                   type="button"
                   onClick={() => onStepClick(idx)}
                   aria-current={isCurrent ? "step" : undefined}
-                  className="flex flex-col items-center relative cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-electric-500 rounded-lg px-1"
+                  className="flex flex-col items-center relative cursor-pointer focus:outline-none rounded-lg px-1"
                 >
                   {content}
                 </button>

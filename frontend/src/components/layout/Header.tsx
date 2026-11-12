@@ -12,34 +12,34 @@ export const Header: React.FC<HeaderProps> = ({ onSimulateClick }) => {
   const { isDark, toggle: toggleDark } = useDarkMode();
 
   return (
-    <header className="sticky top-0 z-30 bg-white/95 dark:bg-dark-card/95 backdrop-blur-md border-b border-slate-200/80 dark:border-dark-border px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-xs transition-colors duration-150">
+    <header className="sticky top-0 z-30 bg-th-surface/95 backdrop-blur-md border-b border-th-border px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-xs transition-colors duration-150">
       {/* Left: Active Room Info */}
       <div className="flex items-center gap-3 min-w-0">
         {selectedRoom ? (
           <>
-            <div className="w-10 h-10 rounded-xl bg-navy-900 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-th-accent text-th-onAccent flex items-center justify-center font-bold text-sm shadow-xs flex-shrink-0">
               {selectedRoom.block}
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-base sm:text-lg font-bold text-navy-900 dark:text-dark-text tracking-tight truncate">
+                <h2 className="text-base sm:text-lg font-bold text-th-text tracking-tight truncate">
                   Room {selectedRoom.room_number}
                 </h2>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-electric-50 text-electric-700 border border-electric-200">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-th-lavender text-th-lavenderTxt border border-th-lavenderBdr">
                   {selectedRoom.room_type === "ac" ? "AC" : "NON-AC"}
                 </span>
-                <span className="text-xs text-slate-400 dark:text-dark-muted capitalize">
+                <span className="text-xs text-th-textMuted capitalize">
                   ({selectedRoom.hostel_type} hostel)
                 </span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-dark-muted font-medium truncate">
+              <p className="text-xs text-th-textSub font-medium truncate">
                 Floor {selectedRoom.floor} • {selectedRoom.students.length} / 3 Roommates Registered
               </p>
             </div>
           </>
         ) : (
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-slate-500 dark:text-dark-muted">
+            <span className="text-sm font-semibold text-th-textSub">
               {isLoading ? "Loading room context…" : "Complete registration to configure your hostel room"}
             </span>
           </div>
@@ -49,18 +49,18 @@ export const Header: React.FC<HeaderProps> = ({ onSimulateClick }) => {
       {/* Right: Period Selector & Quick Actions */}
       <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
         {/* Billing Period Dropdown */}
-        <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-dark-border rounded-xl px-2.5 py-1.5">
-          <label htmlFor="header-period-select" className="text-xs font-semibold text-slate-500 dark:text-dark-muted">
+        <div className="flex items-center gap-1.5 bg-th-card border border-th-border rounded-xl px-2.5 py-1.5">
+          <label htmlFor="header-period-select" className="text-xs font-semibold text-th-textMuted">
             Period:
           </label>
           <select
             id="header-period-select"
             value={selectedPeriodId || ""}
             onChange={(e) => setSelectedPeriodId(Number(e.target.value))}
-            className="text-xs font-bold text-navy-900 dark:text-dark-text bg-transparent focus:outline-none cursor-pointer"
+            className="text-xs font-bold text-th-text bg-transparent focus:outline-none cursor-pointer"
           >
             {billingPeriods.map((bp) => (
-              <option key={bp.id} value={bp.id} className="dark:bg-dark-card">
+              <option key={bp.id} value={bp.id} className="bg-th-card text-th-text">
                 {bp.label}
               </option>
             ))}
@@ -74,7 +74,7 @@ export const Header: React.FC<HeaderProps> = ({ onSimulateClick }) => {
             size="sm"
             onClick={onSimulateClick}
             leftIcon={
-              <svg className="w-3.5 h-3.5 text-electric-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <svg className="w-3.5 h-3.5 text-th-accentText" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             }
@@ -89,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({ onSimulateClick }) => {
           onClick={toggleDark}
           aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
           title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-          className="p-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors duration-150"
+          className="p-2 rounded-xl border border-th-border bg-th-card text-th-textSub hover:bg-th-highlight hover:text-th-text transition-colors duration-150"
         >
           {isDark ? (
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -106,20 +106,20 @@ export const Header: React.FC<HeaderProps> = ({ onSimulateClick }) => {
         <div
           className={`hidden md:flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg border ${
             apiOnline === false
-              ? "bg-rose-50 border-rose-200 text-rose-800"
+              ? "bg-th-errBg border-th-errBdr text-th-errTxt"
               : apiOnline === true
-              ? "bg-emerald-50/70 border-emerald-200 text-emerald-800"
-              : "bg-slate-50 border-slate-200 text-slate-500"
+              ? "bg-th-matchBg border-th-matchBdr text-th-matchTxt"
+              : "bg-th-card border-th-border text-th-textMuted"
           }`}
           title="Backend REST API status"
         >
           <span
             className={`w-2 h-2 rounded-full ${
               apiOnline === false
-                ? "bg-rose-500"
+                ? "bg-th-errSolid"
                 : apiOnline === true
-                ? "bg-emerald-500"
-                : "bg-slate-400"
+                ? "bg-th-matchSolid"
+                : "bg-th-textMuted"
             }`}
           />
           <span className="text-[11px] font-bold uppercase tracking-wider">

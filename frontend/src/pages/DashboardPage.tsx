@@ -33,20 +33,20 @@ function formatDate(isoDate: string): string {
 
 /** Verdict metadata helper */
 function verdictMeta(verdict: string | null, tolerancePct: number) {
-  if (!verdict) return { color: "text-slate-400", bg: "bg-slate-50", border: "border-slate-200", icon: "⏳", text: "No data yet" };
+  if (!verdict) return { color: "text-th-textMuted", bg: "bg-th-surface", border: "border-th-border", icon: "⏳", text: "No data yet" };
   if (verdict === "Readings Match")
-    return { color: "text-emerald-700", bg: "bg-emerald-50", border: "border-emerald-200", icon: "✅", text: `Within ±${tolerancePct}% tolerance` };
+    return { color: "text-th-matchTxt", bg: "bg-th-matchBg", border: "border-th-matchBdr", icon: "✅", text: `Within ±${tolerancePct}% tolerance` };
   if (verdict === "Minor Variation")
-    return { color: "text-amber-700", bg: "bg-amber-50", border: "border-amber-200", icon: "⚠️", text: "Moderate variance — check reading timestamps and boundaries" };
-  return { color: "text-rose-700", bg: "bg-rose-50", border: "border-rose-200", icon: "📋", text: "Notable unit difference — check electrical boundary & period alignment" };
+    return { color: "text-th-warnTxt", bg: "bg-th-warnBg", border: "border-th-warnBdr", icon: "⚠️", text: "Moderate variance — check reading timestamps and boundaries" };
+  return { color: "text-th-errTxt", bg: "bg-th-errBg", border: "border-th-errBdr", icon: "📋", text: "Notable unit difference — check electrical boundary & period alignment" };
 }
 
 /** Mismatch % color class based on comparison to tolerance */
 function mismatchColor(pct: number, tolerance: number): string {
   const abs = Math.abs(pct);
-  if (abs <= tolerance) return "text-emerald-600";
-  if (abs <= tolerance * 2) return "text-amber-600";
-  return "text-rose-600";
+  if (abs <= tolerance) return "text-th-matchTxt";
+  if (abs <= tolerance * 2) return "text-th-warnTxt";
+  return "text-th-errTxt";
 }
 
 export const DashboardPage: React.FC = () => {
@@ -208,7 +208,7 @@ export const DashboardPage: React.FC = () => {
       {loadError && (
         <div
           role="alert"
-          className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+          className="p-4 rounded-2xl bg-th-errBg border border-th-errBdr text-th-errTxt flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
         >
           <div>
             <p className="font-bold">Unable to load dashboard metrics</p>
@@ -222,66 +222,66 @@ export const DashboardPage: React.FC = () => {
 
       {/* ── Simulated Data Warning Banner ─────────────────────────── */}
       {hasSimulatedData && (
-        <div className="p-4 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+        <div className="p-4 rounded-2xl bg-th-warnBg border-2 border-th-warnBdr text-th-warnTxt flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
           <div className="flex items-center gap-3">
             <span className="text-2xl">⚠️</span>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-extrabold text-xs uppercase tracking-wider text-amber-900">
+                <span className="font-extrabold text-xs uppercase tracking-wider text-th-warnTxt">
                   Simulated Demo Data Notice
                 </span>
                 <Badge variant="source" sourceType="Simulated Demo Data" size="sm" />
               </div>
-              <p className="text-xs text-amber-800/90 mt-0.5">
+              <p className="text-xs text-th-warnTxt/90 mt-0.5">
                 Current dashboard statistics include synthetic demo data generated for demonstration purposes.
                 Every reading is source-verified — simulated data is <strong>never</strong> presented as physical sensor measurements.
               </p>
             </div>
           </div>
-          <span className="text-[11px] font-mono font-bold text-amber-900/80 px-2.5 py-1 rounded-lg bg-amber-100/80 border border-amber-200 self-end sm:self-center whitespace-nowrap">
+          <span className="text-[11px] font-mono font-bold text-th-warnTxt px-2.5 py-1 rounded-lg bg-th-card/70 border border-th-warnBdr self-end sm:self-center whitespace-nowrap">
             Integrity Tagged
           </span>
         </div>
       )}
 
       {/* ── Personalized Greeting & Room Hero ─────────────────────── */}
-      <div className="bg-navy-900 border border-navy-800 rounded-3xl p-6 sm:p-8 text-white shadow-card flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-th-hero border border-th-heroBdr rounded-3xl p-6 sm:p-8 text-th-heroText shadow-card flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           {currentStudent ? (
             <>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/90 text-xs font-semibold mb-3 border border-white/10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-th-lavender text-th-lavenderTxt text-xs font-semibold mb-3 border border-th-lavenderBdr">
                 <span>Aditya University · BillShield</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                 {getGreeting()}, {currentStudent.name}! 👋
               </h1>
-              <p className="mt-1.5 text-sm text-slate-300 leading-relaxed">
+              <p className="mt-1.5 text-sm text-th-heroSub leading-relaxed">
                 {selectedRoom ? (
                   <>
-                    <span className="font-semibold text-white capitalize">{selectedRoom.hostel_type}</span> Hostel
-                    {" · "}Block <span className="font-semibold text-white">{selectedRoom.block}</span>
-                    {" · "}Room <span className="font-semibold text-white">{selectedRoom.room_number}</span>
+                    <span className="font-semibold text-th-heroText capitalize">{selectedRoom.hostel_type}</span> Hostel
+                    {" · "}Block <span className="font-semibold text-th-heroText">{selectedRoom.block}</span>
+                    {" · "}Room <span className="font-semibold text-th-heroText">{selectedRoom.room_number}</span>
                     {" · "}
-                    <span className="font-semibold text-white uppercase">{selectedRoom.room_type.replace("_", "-")}</span>
+                    <span className="font-semibold text-th-heroText uppercase">{selectedRoom.room_type.replace("_", "-")}</span>
                   </>
                 ) : (
                   "No room selected — pick one from the sidebar."
                 )}
               </p>
               {activePeriod && (
-                <p className="mt-1 text-xs text-slate-400">
+                <p className="mt-1 text-xs text-th-textMuted">
                   Viewing period:{" "}
-                  <span className="text-white font-bold underline decoration-electric-400">{activePeriod.label}</span>
+                  <span className="text-th-heroText font-bold underline decoration-th-accent">{activePeriod.label}</span>
                 </p>
               )}
             </>
           ) : (
             <>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/90 text-xs font-semibold mb-3 border border-white/10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-th-lavender text-th-lavenderTxt text-xs font-semibold mb-3 border border-th-lavenderBdr">
                 <span>Aditya University · BillShield</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Room Electricity Monitor</h1>
-              <p className="mt-2 text-sm text-slate-300 leading-relaxed max-w-md">
+              <p className="mt-2 text-sm text-th-heroSub leading-relaxed max-w-md">
                 Register your student profile to get a personalized dashboard with your room's electricity records and bill verification.
               </p>
               <Link to="/register" className="mt-4 inline-block">
@@ -295,17 +295,17 @@ export const DashboardPage: React.FC = () => {
 
         <div className="flex flex-wrap items-center gap-2.5">
           <Link to="/register">
-            <Button variant="secondary" size="md" className="bg-navy-800 text-white hover:bg-navy-700 border border-navy-600">
+            <Button variant="outline" size="md">
               Edit Room Details
             </Button>
           </Link>
           <Link to="/room">
-            <Button variant="secondary" size="md" className="bg-navy-800 text-white hover:bg-navy-700 border border-navy-600">
+            <Button variant="outline" size="md">
               Room Config
             </Button>
           </Link>
           <Link to="/readings">
-            <Button variant="secondary" size="md" className="bg-navy-800 text-white hover:bg-navy-700 border border-navy-600">
+            <Button variant="outline" size="md">
               + Enter Readings
             </Button>
           </Link>
@@ -401,17 +401,17 @@ export const DashboardPage: React.FC = () => {
         <Card
           className={`rounded-3xl border shadow-card overflow-hidden ${
             comparison.verdict === "Readings Match"
-              ? "border-emerald-200"
+              ? "border-th-matchBdr"
               : comparison.verdict === "Minor Variation"
-              ? "border-amber-200"
-              : "border-rose-200"
+              ? "border-th-warnBdr"
+              : "border-th-errBdr"
           }`}
         >
           {/* Verdict header strip */}
           <div className={`px-6 pt-6 pb-5 ${vm.bg}`}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                <p className="text-xs font-bold uppercase tracking-wider text-th-textMuted mb-1">
                   Verification Outcome · {comparison.billing_period_label}
                 </p>
                 <div className="flex items-center gap-3 flex-wrap">
@@ -419,12 +419,12 @@ export const DashboardPage: React.FC = () => {
                   <h2 className={`text-2xl font-black tracking-tight ${vm.color}`}>{comparison.verdict}</h2>
                   <Badge variant="status" statusType={comparison.verdict} size="md" />
                 </div>
-                <p className={`text-xs mt-1.5 max-w-lg ${vm.color} opacity-80`}>{vm.text}</p>
+                <p className={`text-xs mt-1.5 max-w-lg ${vm.color} opacity-85`}>{vm.text}</p>
               </div>
               {/* Difference pill */}
-              <div className={`flex flex-col items-end gap-0.5 p-4 rounded-2xl bg-white/70 border ${vm.border} shadow-xs min-w-[140px]`}>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Difference</span>
-                <span className="text-2xl font-black font-mono text-navy-900">
+              <div className={`flex flex-col items-end gap-0.5 p-4 rounded-2xl bg-th-card border ${vm.border} shadow-xs min-w-[140px]`}>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-th-textMuted">Difference</span>
+                <span className="text-2xl font-black font-mono text-th-text">
                   {comparison.difference_units > 0 ? "+" : ""}{comparison.difference_units.toFixed(2)}
                   <span className="text-sm font-semibold ml-1">kWh</span>
                 </span>
@@ -436,34 +436,34 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           {/* Side-by-side meters */}
-          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-th-borderSub">
             {/* Left: Room Sensor */}
             <div className="px-6 py-5 space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Room Sensor Reading</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-th-textMuted">Room Sensor Reading</span>
                 <Badge variant="source" sourceType={comparison.room_reading_source} size="sm" />
               </div>
               <div className="space-y-3">
-                <div className="flex items-baseline justify-between pb-3 border-b border-slate-100">
-                  <span className="text-xs text-slate-500">Start → End Reading</span>
-                  <span className="text-xs font-bold font-mono text-navy-900">
+                <div className="flex items-baseline justify-between pb-3 border-b border-th-borderSub">
+                  <span className="text-xs text-th-textMuted">Start → End Reading</span>
+                  <span className="text-xs font-bold font-mono text-th-text">
                     {comparison.room_reading_start.toFixed(1)} → {comparison.room_reading_end.toFixed(1)} kWh
                   </span>
                 </div>
-                <div className="flex items-baseline justify-between pb-3 border-b border-slate-100">
-                  <span className="text-xs text-slate-500">Consumption (End − Start)</span>
-                  <span className="text-2xl font-black font-mono text-navy-900">
+                <div className="flex items-baseline justify-between pb-3 border-b border-th-borderSub">
+                  <span className="text-xs text-th-textMuted">Consumption (End − Start)</span>
+                  <span className="text-2xl font-black font-mono text-th-text">
                     {comparison.room_units.toFixed(2)}
                     <span className="text-sm font-normal ml-1">kWh</span>
                   </span>
                 </div>
-                <div className="flex items-baseline justify-between pb-3 border-b border-slate-100">
-                  <span className="text-xs text-slate-500">Applied Rate</span>
-                  <span className="text-sm font-bold font-mono text-navy-900">₹{comparison.rate_per_unit.toFixed(2)} / kWh</span>
+                <div className="flex items-baseline justify-between pb-3 border-b border-th-borderSub">
+                  <span className="text-xs text-th-textMuted">Applied Rate</span>
+                  <span className="text-sm font-bold font-mono text-th-text">₹{comparison.rate_per_unit.toFixed(2)} / kWh</span>
                 </div>
                 <div className="flex items-baseline justify-between">
-                  <span className="text-xs font-bold text-navy-900">Calculated Room Bill</span>
-                  <span className="text-xl font-black font-mono text-blue-600">₹{comparison.room_bill.toFixed(2)}</span>
+                  <span className="text-xs font-bold text-th-text">Calculated Room Bill</span>
+                  <span className="text-xl font-black font-mono text-th-accentText">₹{comparison.room_bill.toFixed(2)}</span>
                 </div>
               </div>
             </div>
@@ -471,40 +471,40 @@ export const DashboardPage: React.FC = () => {
             {/* Right: Hostel Meter */}
             <div className="px-6 py-5 space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Hostel Meter Reading</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-th-textMuted">Hostel Meter Reading</span>
                 <Badge variant="source" sourceType={comparison.hostel_reading_source} size="sm" />
               </div>
               <div className="space-y-3">
-                <div className="flex items-baseline justify-between pb-3 border-b border-slate-100">
-                  <span className="text-xs text-slate-500">Start → End Reading</span>
-                  <span className="text-xs font-bold font-mono text-navy-900">
+                <div className="flex items-baseline justify-between pb-3 border-b border-th-borderSub">
+                  <span className="text-xs text-th-textMuted">Start → End Reading</span>
+                  <span className="text-xs font-bold font-mono text-th-text">
                     {comparison.hostel_reading_start != null && comparison.hostel_reading_end != null
                       ? `${comparison.hostel_reading_start.toFixed(1)} → ${comparison.hostel_reading_end.toFixed(1)} kWh`
                       : "Direct unit entry"}
                   </span>
                 </div>
-                <div className="flex items-baseline justify-between pb-3 border-b border-slate-100">
-                  <span className="text-xs text-slate-500">Consumption (End − Start)</span>
-                  <span className="text-2xl font-black font-mono text-navy-900">
+                <div className="flex items-baseline justify-between pb-3 border-b border-th-borderSub">
+                  <span className="text-xs text-th-textMuted">Consumption (End − Start)</span>
+                  <span className="text-2xl font-black font-mono text-th-text">
                     {comparison.hostel_units.toFixed(2)}
                     <span className="text-sm font-normal ml-1">kWh</span>
                   </span>
                 </div>
-                <div className="flex items-baseline justify-between pb-3 border-b border-slate-100">
-                  <span className="text-xs text-slate-500">Applied Rate</span>
-                  <span className="text-sm font-bold font-mono text-navy-900">₹{comparison.rate_per_unit.toFixed(2)} / kWh</span>
+                <div className="flex items-baseline justify-between pb-3 border-b border-th-borderSub">
+                  <span className="text-xs text-th-textMuted">Applied Rate</span>
+                  <span className="text-sm font-bold font-mono text-th-text">₹{comparison.rate_per_unit.toFixed(2)} / kWh</span>
                 </div>
                 <div className="flex items-baseline justify-between">
-                  <span className="text-xs font-bold text-navy-900">Total Billed Amount</span>
-                  <span className="text-xl font-black font-mono text-navy-900">₹{comparison.hostel_bill.toFixed(2)}</span>
+                  <span className="text-xs font-bold text-th-text">Total Billed Amount</span>
+                  <span className="text-xl font-black font-mono text-th-text">₹{comparison.hostel_bill.toFixed(2)}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Footer quick-link */}
-          <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-4">
-            <p className="text-xs text-slate-500">
+          <div className="px-6 py-4 bg-th-surface border-t border-th-borderSub flex items-center justify-between gap-4">
+            <p className="text-xs text-th-textSub">
               Full side-by-side breakdown with detailed audit trail on the Compare page.
             </p>
             <Link to="/compare">
@@ -514,7 +514,7 @@ export const DashboardPage: React.FC = () => {
         </Card>
       ) : (
         /* No comparison data */
-        <Card className="p-8 border-dashed border-2 border-slate-200">
+        <Card className="p-8 border-dashed border-2 border-th-border">
           <EmptyState
             title="No Comparison Data Yet"
             description="Enter both a room sub-meter reading and an official hostel meter reading for the same billing period to run verification."
@@ -531,13 +531,13 @@ export const DashboardPage: React.FC = () => {
         <Card className="lg:col-span-1">
           <CardHeader>
             <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-electric-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-th-accentText" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
               <CardTitle>Billing Parameters</CardTitle>
             </div>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-th-textMuted mt-1">
               Editable rate and tolerance — changes recalculate all comparisons instantly.
             </p>
           </CardHeader>
@@ -563,7 +563,7 @@ export const DashboardPage: React.FC = () => {
                 helperText="Default: ±5%"
               />
               {settingsError && (
-                <p className="text-xs text-rose-600 font-medium">{settingsError}</p>
+                <p className="text-xs text-th-errTxt font-medium">{settingsError}</p>
               )}
               <Button type="submit" variant="primary" className="w-full" isLoading={savingSettings}>
                 Save Parameters
@@ -578,7 +578,7 @@ export const DashboardPage: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle>Appliance Inventory & Theoretical Estimate</CardTitle>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-th-textMuted mt-1">
                   {selectedRoom?.room_type.replace("_", "-").toUpperCase()} room · {selectedRoom?.hostel_type} hostel
                 </p>
               </div>
@@ -586,7 +586,7 @@ export const DashboardPage: React.FC = () => {
                 type="button"
                 aria-expanded={showEstimate}
                 onClick={() => setShowEstimate((p) => !p)}
-                className="text-xs font-bold text-electric-600 hover:text-electric-700 px-3 py-1.5 rounded-lg border border-electric-200 hover:bg-electric-50 transition-colors"
+                className="text-xs font-bold text-th-text px-3 py-1.5 rounded-lg border border-th-lavenderBdr bg-th-lavender hover:bg-th-highlight transition-colors"
               >
                 {showEstimate ? "Hide Estimate" : "Show Estimate"}
               </button>
@@ -594,7 +594,7 @@ export const DashboardPage: React.FC = () => {
           </CardHeader>
           <CardContent className="space-y-3">
             {/* Warning disclaimer — always visible */}
-            <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold flex items-center gap-2">
+            <div className="p-3 rounded-xl bg-th-warnBg border border-th-warnBdr text-th-warnTxt text-xs font-semibold flex items-center gap-2">
               <span>⚡</span>
               <span>Theoretical Estimate Only — Not a Measured Value. These figures are based on appliance wattage assumptions, not actual meter readings.</span>
             </div>
@@ -605,19 +605,19 @@ export const DashboardPage: React.FC = () => {
               return (
                 <div
                   key={app.id}
-                  className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100"
+                  className="flex items-center justify-between p-3 rounded-xl bg-th-surface border border-th-borderSub"
                 >
                   <div>
-                    <p className="text-xs font-bold text-navy-900">{app.name}</p>
-                    <p className="text-[11px] text-slate-500">
+                    <p className="text-xs font-bold text-th-text">{app.name}</p>
+                    <p className="text-[11px] text-th-textMuted">
                       {app.quantity}× · {app.rated_watts}W · ~{app.assumed_daily_hours}h/day
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="text-xs font-bold text-navy-900 font-mono">
+                    <span className="text-xs font-bold text-th-text font-mono">
                       ~{periodKwh.toFixed(2)}
                     </span>
-                    <span className="text-[10px] text-slate-400 block">kWh / period</span>
+                    <span className="text-[10px] text-th-textMuted block">kWh / period</span>
                   </div>
                 </div>
               );
@@ -625,33 +625,33 @@ export const DashboardPage: React.FC = () => {
 
             {/* Period estimate total + comparison vs actual */}
             {showEstimate && (
-              <div className="mt-2 p-4 rounded-2xl bg-navy-900 text-white space-y-2">
+              <div className="mt-2 p-4 rounded-2xl bg-th-hero border border-th-heroBdr text-th-heroText space-y-2">
                 <div className="flex items-baseline justify-between">
-                  <span className="text-xs font-semibold text-slate-300">Total Theoretical Estimate</span>
-                  <span className="text-xl font-black font-mono text-blue-300">
+                  <span className="text-xs font-semibold text-th-heroSub">Total Theoretical Estimate</span>
+                  <span className="text-xl font-black font-mono text-th-accentText">
                     ~{applianceEstimateKwh.toFixed(2)} kWh
                   </span>
                 </div>
                 <div className="flex items-baseline justify-between">
-                  <span className="text-xs text-slate-400">Period ({billingDays} days)</span>
-                  <span className="text-xs font-bold text-slate-300 font-mono">
+                  <span className="text-xs text-th-textMuted">Period ({billingDays} days)</span>
+                  <span className="text-xs font-bold text-th-heroSub font-mono">
                     ~₹{(applianceEstimateKwh * (settings?.rate_per_unit ?? 10)).toFixed(0)}
                   </span>
                 </div>
                 {displayUnits !== null && (
                   <>
-                    <div className="border-t border-white/10 pt-2 flex items-baseline justify-between">
-                      <span className="text-xs text-slate-400">Actual Recorded</span>
-                      <span className="text-xs font-bold text-slate-300 font-mono">{displayUnits.toFixed(2)} kWh</span>
+                    <div className="border-t border-th-borderSub pt-2 flex items-baseline justify-between">
+                      <span className="text-xs text-th-textMuted">Actual Recorded</span>
+                      <span className="text-xs font-bold text-th-heroSub font-mono">{displayUnits.toFixed(2)} kWh</span>
                     </div>
                     <div className="flex items-baseline justify-between">
-                      <span className="text-xs text-slate-400">Deviation from estimate</span>
-                      <span className="text-xs font-bold text-blue-300 font-mono">
+                      <span className="text-xs text-th-textMuted">Deviation from estimate</span>
+                      <span className="text-xs font-bold text-th-accentText font-mono">
                         {displayUnits - applianceEstimateKwh > 0 ? "+" : ""}
                         {(displayUnits - applianceEstimateKwh).toFixed(2)} kWh
                       </span>
                     </div>
-                    <p className="text-[10px] text-slate-500 pt-1">
+                    <p className="text-[10px] text-th-textMuted pt-1">
                       Estimates assume fixed daily usage hours; actual usage will vary based on occupancy and behaviour.
                     </p>
                   </>
@@ -667,24 +667,24 @@ export const DashboardPage: React.FC = () => {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle>Recent Meter History</CardTitle>
-            <Link to="/readings" className="text-xs font-bold text-blue-600 hover:text-blue-700">
+            <Link to="/readings" className="text-xs font-bold text-th-accentText hover:underline">
               View All →
             </Link>
           </div>
-          <p className="text-xs text-slate-500 mt-1">Source-tagged readings for this room</p>
+          <p className="text-xs text-th-textMuted mt-1">Source-tagged readings for this room</p>
         </CardHeader>
         <CardContent>
           {readings.length === 0 ? (
-            <div className="py-8 text-center text-xs text-slate-400">
+            <div className="py-8 text-center text-xs text-th-textMuted">
               No meter readings recorded yet. Use{" "}
-              <Link to="/readings" className="font-bold text-blue-600 hover:underline">Enter Readings</Link>{" "}
+              <Link to="/readings" className="font-bold text-th-accentText hover:underline">Enter Readings</Link>{" "}
               to get started.
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-100 text-slate-400 font-semibold uppercase tracking-wider">
+                  <tr className="border-b border-th-borderSub text-th-textMuted font-semibold uppercase tracking-wider">
                     <th className="py-2.5 px-3">Billing Period</th>
                     <th className="py-2.5 px-3">Start kWh</th>
                     <th className="py-2.5 px-3">End kWh</th>
@@ -692,13 +692,13 @@ export const DashboardPage: React.FC = () => {
                     <th className="py-2.5 px-3">Source Tag</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-th-borderSub">
                   {readings.slice(0, 5).map((r) => (
-                    <tr key={r.id} className="hover:bg-slate-50/60 transition-colors">
-                      <td className="py-3 px-3 font-semibold text-navy-900">{r.billing_period.label}</td>
-                      <td className="py-3 px-3 font-mono text-slate-600">{r.reading_start.toFixed(1)}</td>
-                      <td className="py-3 px-3 font-mono text-slate-600">{r.reading_end.toFixed(1)}</td>
-                      <td className="py-3 px-3 font-mono font-bold text-navy-900">{r.consumption.toFixed(2)} kWh</td>
+                    <tr key={r.id} className="hover:bg-th-highlight/50 transition-colors">
+                      <td className="py-3 px-3 font-semibold text-th-text">{r.billing_period.label}</td>
+                      <td className="py-3 px-3 font-mono text-th-textSub">{r.reading_start.toFixed(1)}</td>
+                      <td className="py-3 px-3 font-mono text-th-textSub">{r.reading_end.toFixed(1)}</td>
+                      <td className="py-3 px-3 font-mono font-bold text-th-text">{r.consumption.toFixed(2)} kWh</td>
                       <td className="py-3 px-3">
                         <Badge variant="source" sourceType={r.source} size="sm" />
                       </td>

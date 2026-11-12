@@ -247,16 +247,16 @@ export const RoomConfigPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header & Room Identity Card */}
-      <div className="bg-navy-900 border border-navy-800 rounded-3xl p-6 sm:p-8 text-white shadow-card flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+      <div className="bg-th-hero border border-th-heroBdr rounded-3xl p-6 sm:p-8 text-th-heroText shadow-card flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div className="space-y-2">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-xs font-bold uppercase tracking-wider text-slate-200 border border-white/10">
+            <span className="px-2.5 py-0.5 rounded-full bg-th-card text-xs font-bold uppercase tracking-wider text-th-text border border-th-border">
               {formatHostelType(selectedRoom.hostel_type)}
             </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-electric-600 text-xs font-bold uppercase tracking-wider text-white">
+            <span className="px-2.5 py-0.5 rounded-full bg-th-accent text-xs font-bold uppercase tracking-wider text-th-onAccent">
               Block {selectedRoom.block}
             </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-white text-navy-900 text-xs font-extrabold uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded-full bg-th-lavender text-th-lavenderTxt border border-th-lavenderBdr text-xs font-extrabold uppercase tracking-wider">
               {formatRoomType(selectedRoom.room_type)} Room
             </span>
           </div>
@@ -265,7 +265,7 @@ export const RoomConfigPage: React.FC = () => {
             Room #{selectedRoom.room_number} Configuration
           </h1>
 
-          <p className="text-xs sm:text-sm text-slate-300">
+          <p className="text-xs sm:text-sm text-th-heroSub">
             Floor {selectedRoom.floor} · {selectedRoom.students.length} of {ROOMMATES_PER_ROOM} roommates registered ·{" "}
             {selectedRoom.appliances.length} configured appliance types
           </p>
@@ -274,10 +274,9 @@ export const RoomConfigPage: React.FC = () => {
         <div className="flex flex-wrap items-center gap-3">
           <Button
             type="button"
-            variant="secondary"
+            variant="outline"
             size="md"
             onClick={openEditModal}
-            className="bg-navy-800 text-white hover:bg-navy-700 border border-navy-600"
           >
             Edit Room Configuration
           </Button>
@@ -292,22 +291,22 @@ export const RoomConfigPage: React.FC = () => {
       {/* Room Data Isolation Notice */}
       <div
         role="note"
-        className="p-4 rounded-2xl bg-electric-50 border border-electric-200 text-navy-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+        className="p-4 rounded-2xl bg-th-lavender border border-th-lavenderBdr text-th-text flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
       >
         <div className="flex items-start gap-2.5">
-          <span className="font-bold text-electric-700" aria-hidden="true">🔒</span>
+          <span className="font-bold text-th-lavenderTxt" aria-hidden="true">🔒</span>
           <div>
-            <p className="font-bold text-electric-900">
+            <p className="font-bold text-th-lavenderTxt">
               Independent Room Electricity Ledger (Room ID #{selectedRoom.id})
             </p>
-            <p className="text-slate-600 mt-0.5">
+            <p className="text-th-textSub mt-0.5">
               All sub-meter readings, hostel meter records, and verification bills for{" "}
               <strong>{formatHostelType(selectedRoom.hostel_type)} · Block {selectedRoom.block} · Room {selectedRoom.room_number}</strong>{" "}
               are stored independently and never mixed with any other room.
             </p>
           </div>
         </div>
-        <span className="font-mono font-bold text-[11px] px-2.5 py-1 rounded-lg bg-white border border-electric-200 text-electric-800 self-start sm:self-center whitespace-nowrap">
+        <span className="font-mono font-bold text-[11px] px-2.5 py-1 rounded-lg bg-th-card border border-th-lavenderBdr text-th-lavenderTxt self-start sm:self-center whitespace-nowrap">
           {roomReadings.length} Recorded {roomReadings.length === 1 ? "Period" : "Periods"}
         </span>
       </div>
@@ -318,7 +317,7 @@ export const RoomConfigPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <CardTitle>Shared Room Consumption &amp; Per-Roommate Cost Estimate</CardTitle>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-th-textMuted mt-0.5">
                 {activePeriod ? `Billing Period: ${activePeriod.label}` : "Latest recorded billing period"} · Rate ₹{ratePerUnit.toFixed(2)}/kWh
               </p>
             </div>
@@ -329,15 +328,15 @@ export const RoomConfigPage: React.FC = () => {
               role="switch"
               aria-checked={showEqualShare}
               onClick={() => setShowEqualShare((prev) => !prev)}
-              className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-slate-800 text-xs font-semibold text-navy-900 dark:text-dark-text hover:bg-slate-100 transition-colors self-start sm:self-auto"
+              className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-xl border border-th-border bg-th-surface text-xs font-semibold text-th-text hover:bg-th-highlight transition-colors self-start sm:self-auto"
             >
               <span
                 className={`w-9 h-5 rounded-full relative transition-colors inline-flex items-center px-0.5 ${
-                  showEqualShare ? "bg-electric-600" : "bg-slate-300"
+                  showEqualShare ? "bg-th-accent" : "bg-th-border"
                 }`}
               >
                 <span
-                  className={`w-4 h-4 rounded-full bg-white transition-transform ${
+                  className={`w-4 h-4 rounded-full bg-th-card transition-transform ${
                     showEqualShare ? "translate-x-4" : "translate-x-0"
                   }`}
                 />
@@ -349,7 +348,7 @@ export const RoomConfigPage: React.FC = () => {
 
         <CardContent>
           {loadError ? (
-            <div role="alert" className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs flex items-center justify-between gap-3">
+            <div role="alert" className="p-4 rounded-xl bg-th-errBg border border-th-errBdr text-th-errTxt text-xs flex items-center justify-between gap-3">
               <span>{loadError}</span>
               <Button type="button" variant="outline" size="sm" onClick={loadRoomMetrics}>
                 Retry
@@ -372,11 +371,11 @@ export const RoomConfigPage: React.FC = () => {
           ) : (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-dark-border">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+                <div className="p-4 rounded-2xl bg-th-surface border border-th-border">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-th-textMuted block">
                     Total Shared Room Usage
                   </span>
-                  <p className="text-2xl font-black font-mono text-navy-900 dark:text-dark-text mt-1">
+                  <p className="text-2xl font-black font-mono text-th-text mt-1">
                     {sharedConsumptionKwh.toFixed(2)} <span className="text-xs font-semibold">kWh</span>
                   </p>
                   <div className="mt-2">
@@ -390,41 +389,41 @@ export const RoomConfigPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-dark-border">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+                <div className="p-4 rounded-2xl bg-th-surface border border-th-border">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-th-textMuted block">
                     Total Estimated Room Bill
                   </span>
-                  <p className="text-2xl font-black font-mono text-electric-600 mt-1">
+                  <p className="text-2xl font-black font-mono text-th-accentText mt-1">
                     ₹{sharedEstimatedCost.toFixed(2)}
                   </p>
-                  <p className="text-[11px] text-slate-500 mt-1">
+                  <p className="text-[11px] text-th-textMuted mt-1">
                     Computed at ₹{ratePerUnit.toFixed(2)}/kWh
                   </p>
                 </div>
 
                 {showEqualShare && (
                   <>
-                    <div className="p-4 rounded-2xl bg-electric-50/70 dark:bg-electric-950/30 border border-electric-200 dark:border-electric-800">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-electric-800 dark:text-electric-400 block">
+                    <div className="p-4 rounded-2xl bg-th-highlight/70 border border-th-border">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-th-textSub block">
                         Optional Share / Roommate
                       </span>
-                      <p className="text-2xl font-black font-mono text-navy-900 dark:text-dark-text mt-1">
+                      <p className="text-2xl font-black font-mono text-th-text mt-1">
                         {(sharedConsumptionKwh / ROOMMATES_PER_ROOM).toFixed(2)}{" "}
                         <span className="text-xs font-semibold">kWh</span>
                       </p>
-                      <p className="text-[11px] text-slate-600 dark:text-dark-muted mt-1">
+                      <p className="text-[11px] text-th-textSub mt-1">
                         Equal split ÷ {ROOMMATES_PER_ROOM} roommates
                       </p>
                     </div>
 
-                    <div className="p-4 rounded-2xl bg-electric-50/70 dark:bg-electric-950/30 border border-electric-200 dark:border-electric-800">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-electric-800 dark:text-electric-400 block">
+                    <div className="p-4 rounded-2xl bg-th-highlight/70 border border-th-border">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-th-textSub block">
                         Est. Cost / Roommate
                       </span>
-                      <p className="text-2xl font-black font-mono text-electric-700 dark:text-electric-400 mt-1">
+                      <p className="text-2xl font-black font-mono text-th-accentText mt-1">
                         ₹{(sharedEstimatedCost / ROOMMATES_PER_ROOM).toFixed(2)}
                       </p>
-                      <p className="text-[11px] text-slate-600 dark:text-dark-muted mt-1">
+                      <p className="text-[11px] text-th-textSub mt-1">
                         Optional equal-share estimate
                       </p>
                     </div>
@@ -433,7 +432,7 @@ export const RoomConfigPage: React.FC = () => {
               </div>
 
               {showEqualShare && (
-                <p className="text-[11px] text-slate-500">
+                <p className="text-[11px] text-th-textMuted">
                   Note: Hostel room electricity is billed per shared room meter. The per-roommate figure is an
                   optional equal 3-way split estimate for personal budgeting.
                 </p>
@@ -450,11 +449,11 @@ export const RoomConfigPage: React.FC = () => {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Roommates ({selectedRoom.students.length}/{ROOMMATES_PER_ROOM})</CardTitle>
-              <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-th-elevated text-th-textSub border border-th-borderSub">
                 Fixed 3 Beds
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-th-textMuted mt-0.5">
               Registered occupants sharing Room {selectedRoom.room_number}
             </p>
           </CardHeader>
@@ -468,31 +467,31 @@ export const RoomConfigPage: React.FC = () => {
                   className={`p-3.5 rounded-xl border text-xs flex items-center justify-between ${
                     student
                       ? isMe
-                        ? "bg-electric-50/70 dark:bg-electric-950/30 border-electric-200 dark:border-electric-800"
-                        : "bg-white dark:bg-dark-card border-slate-200 dark:border-dark-border"
-                      : "bg-slate-50 dark:bg-slate-800/40 border-dashed border-slate-200 dark:border-dark-border"
+                        ? "bg-th-highlight border-th-accent"
+                        : "bg-th-card border-th-border"
+                      : "bg-th-surface/60 border-dashed border-th-border"
                   }`}
                 >
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-th-textMuted block">
                       Roommate #{idx + 1} {isMe && "• You"}
                     </span>
                     {student ? (
                       <>
-                        <p className="font-bold text-navy-900 dark:text-dark-text text-sm mt-0.5">
+                        <p className="font-bold text-th-text text-sm mt-0.5">
                           {student.name}
                         </p>
-                        <p className="font-mono text-[11px] text-slate-500">{student.roll_number}</p>
+                        <p className="font-mono text-[11px] text-th-textMuted">{student.roll_number}</p>
                       </>
                     ) : (
-                      <p className="text-slate-400 italic mt-0.5">Unoccupied demo slot</p>
+                      <p className="text-th-textMuted italic mt-0.5">Unoccupied demo slot</p>
                     )}
                   </div>
                   <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                       student
-                        ? "bg-blue-50 text-blue-700 border border-blue-200"
-                        : "bg-slate-100 text-slate-500"
+                        ? "bg-th-lavender text-th-lavenderTxt border-th-lavenderBdr"
+                        : "bg-th-elevated text-th-textMuted border-th-borderSub"
                     }`}
                   >
                     {student ? "Assigned" : "Vacant"}
@@ -511,7 +510,7 @@ export const RoomConfigPage: React.FC = () => {
                 <CardTitle>
                   {formatRoomType(selectedRoom.room_type)} Room Appliance Configuration
                 </CardTitle>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-th-textMuted mt-0.5">
                   Standard fixed inventory for {formatHostelType(selectedRoom.hostel_type)} · Block {selectedRoom.block}
                 </p>
               </div>
@@ -525,7 +524,7 @@ export const RoomConfigPage: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs min-w-[520px]">
                 <thead>
-                  <tr className="border-b border-slate-100 dark:border-dark-border text-slate-400 font-semibold uppercase tracking-wider">
+                  <tr className="border-b border-th-borderSub text-th-textMuted font-semibold uppercase tracking-wider">
                     <th className="py-2.5 px-3">Appliance</th>
                     <th className="py-2.5 px-3 text-center">Qty</th>
                     <th className="py-2.5 px-3 text-right">Rated Power</th>
@@ -534,35 +533,35 @@ export const RoomConfigPage: React.FC = () => {
                     <th className="py-2.5 px-3 text-right">Est. ({periodDays}d Period)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-dark-border">
+                <tbody className="divide-y divide-th-borderSub">
                   {selectedRoom.appliances.map((app) => {
                     const dailyKwh = (app.rated_watts * app.quantity * app.assumed_daily_hours) / 1000;
                     const periodKwh = dailyKwh * periodDays;
                     return (
-                      <tr key={app.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
-                        <td className="py-3 px-3 font-bold text-navy-900 dark:text-dark-text">
+                      <tr key={app.id} className="hover:bg-th-highlight/50">
+                        <td className="py-3 px-3 font-bold text-th-text">
                           {app.name}
                         </td>
-                        <td className="py-3 px-3 text-center font-mono">{app.quantity}</td>
-                        <td className="py-3 px-3 text-right font-mono">{app.rated_watts} W</td>
-                        <td className="py-3 px-3 text-right font-mono">{app.assumed_daily_hours} h/day</td>
-                        <td className="py-3 px-3 text-right font-mono text-slate-600">
+                        <td className="py-3 px-3 text-center font-mono text-th-textSub">{app.quantity}</td>
+                        <td className="py-3 px-3 text-right font-mono text-th-textSub">{app.rated_watts} W</td>
+                        <td className="py-3 px-3 text-right font-mono text-th-textSub">{app.assumed_daily_hours} h/day</td>
+                        <td className="py-3 px-3 text-right font-mono text-th-textSub">
                           ~{dailyKwh.toFixed(2)} kWh
                         </td>
-                        <td className="py-3 px-3 text-right font-mono font-bold text-navy-900 dark:text-dark-text">
+                        <td className="py-3 px-3 text-right font-mono font-bold text-th-text">
                           ~{periodKwh.toFixed(1)} kWh
                         </td>
                       </tr>
                     );
                   })}
-                  <tr className="bg-slate-50 dark:bg-slate-800/60 font-bold">
-                    <td colSpan={4} className="py-3 px-3 text-navy-900 dark:text-dark-text">
+                  <tr className="bg-th-surface font-bold">
+                    <td colSpan={4} className="py-3 px-3 text-th-text">
                       Total Theoretical Baseline (Estimate Only)
                     </td>
-                    <td className="py-3 px-3 text-right font-mono text-navy-900 dark:text-dark-text">
+                    <td className="py-3 px-3 text-right font-mono text-th-text">
                       ~{totalDailyEstimateKwh.toFixed(2)} kWh
                     </td>
-                    <td className="py-3 px-3 text-right font-mono text-electric-600">
+                    <td className="py-3 px-3 text-right font-mono text-th-accentText">
                       ~{(totalDailyEstimateKwh * periodDays).toFixed(1)} kWh
                     </td>
                   </tr>
@@ -570,7 +569,7 @@ export const RoomConfigPage: React.FC = () => {
               </table>
             </div>
 
-            <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs">
+            <div className="p-3 rounded-xl bg-th-warnBg border border-th-warnBdr text-th-warnTxt text-xs">
               <strong>Estimate Disclaimer:</strong> Wattage and daily hour figures provide a theoretical baseline estimate only and do not represent physical sensor measurements.
             </div>
           </CardContent>
@@ -583,7 +582,7 @@ export const RoomConfigPage: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle>Aditya University Room Categories</CardTitle>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-th-textMuted mt-0.5">
               Supported standard room hardware specifications
             </p>
           </CardHeader>
@@ -591,19 +590,19 @@ export const RoomConfigPage: React.FC = () => {
             <div
               className={`p-4 rounded-xl border ${
                 selectedRoom.room_type === "ac"
-                  ? "border-electric-400 bg-electric-50/50 dark:bg-electric-950/20"
-                  : "border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-slate-800/40"
+                  ? "border-th-accent bg-th-highlight"
+                  : "border-th-border bg-th-surface"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <h4 className="font-bold text-navy-900 dark:text-dark-text">AC Room</h4>
+                <h4 className="font-bold text-th-text">AC Room</h4>
                 {selectedRoom.room_type === "ac" && (
-                  <span className="text-[10px] font-bold text-electric-700 bg-white px-2 py-0.5 rounded-full border border-electric-200">
+                  <span className="text-[10px] font-bold text-th-accentText bg-th-card px-2 py-0.5 rounded-full border border-th-border">
                     Active
                   </span>
                 )}
               </div>
-              <ul className="space-y-1 text-slate-600 dark:text-dark-muted">
+              <ul className="space-y-1 text-th-textSub">
                 {AC_ROOM_SPECS.map((s) => (
                   <li key={s.name}>
                     • {s.quantity} {s.name}{s.quantity > 1 ? "s" : ""} ({s.ratedWatts}W)
@@ -615,19 +614,19 @@ export const RoomConfigPage: React.FC = () => {
             <div
               className={`p-4 rounded-xl border ${
                 selectedRoom.room_type === "non_ac"
-                  ? "border-electric-400 bg-electric-50/50 dark:bg-electric-950/20"
-                  : "border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-slate-800/40"
+                  ? "border-th-accent bg-th-highlight"
+                  : "border-th-border bg-th-surface"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <h4 className="font-bold text-navy-900 dark:text-dark-text">Non-AC Room</h4>
+                <h4 className="font-bold text-th-text">Non-AC Room</h4>
                 {selectedRoom.room_type === "non_ac" && (
-                  <span className="text-[10px] font-bold text-electric-700 bg-white px-2 py-0.5 rounded-full border border-electric-200">
+                  <span className="text-[10px] font-bold text-th-accentText bg-th-card px-2 py-0.5 rounded-full border border-th-border">
                     Active
                   </span>
                 )}
               </div>
-              <ul className="space-y-1 text-slate-600 dark:text-dark-muted">
+              <ul className="space-y-1 text-th-textSub">
                 {NON_AC_ROOM_SPECS.map((s) => (
                   <li key={s.name}>
                     • {s.quantity} {s.name}{s.quantity > 1 ? "s" : ""} ({s.ratedWatts}W)
@@ -644,7 +643,7 @@ export const RoomConfigPage: React.FC = () => {
             <div className="flex items-center justify-between gap-2">
               <div>
                 <CardTitle>Registered Rooms Directory ({rooms.length})</CardTitle>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-th-textMuted mt-0.5">
                   Each room maintains isolated readings — select a row to inspect
                 </p>
               </div>
@@ -657,7 +656,7 @@ export const RoomConfigPage: React.FC = () => {
             <div className="overflow-x-auto max-h-60">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-100 dark:border-dark-border text-slate-400 font-semibold uppercase tracking-wider">
+                  <tr className="border-b border-th-borderSub text-th-textMuted font-semibold uppercase tracking-wider">
                     <th className="py-2 px-3">Hostel</th>
                     <th className="py-2 px-3">Block</th>
                     <th className="py-2 px-3">Room #</th>
@@ -665,13 +664,13 @@ export const RoomConfigPage: React.FC = () => {
                     <th className="py-2 px-3 text-right">Switch</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-dark-border">
+                <tbody className="divide-y divide-th-borderSub">
                   {rooms.map((rm) => {
                     const isActive = rm.id === selectedRoom.id;
                     return (
                       <tr
                         key={rm.id}
-                        className={isActive ? "bg-electric-50/60 dark:bg-electric-950/20 font-semibold" : ""}
+                        className={isActive ? "bg-th-highlight/70 font-semibold" : "hover:bg-th-highlight/40"}
                       >
                         <td className="py-2.5 px-3 capitalize">{rm.hostel_type}</td>
                         <td className="py-2.5 px-3 font-bold">Block {rm.block}</td>
@@ -679,12 +678,12 @@ export const RoomConfigPage: React.FC = () => {
                         <td className="py-2.5 px-3">{formatRoomType(rm.room_type)}</td>
                         <td className="py-2.5 px-3 text-right">
                           {isActive ? (
-                            <span className="text-[10px] font-bold text-electric-600 uppercase">Active</span>
+                            <span className="text-[10px] font-bold text-th-accentText uppercase">Active</span>
                           ) : (
                             <button
                               type="button"
                               onClick={() => setSelectedRoomId(rm.id)}
-                              className="text-xs font-bold text-electric-600 hover:underline"
+                              className="text-xs font-bold text-th-accentText hover:underline"
                             >
                               View Room
                             </button>
@@ -708,7 +707,7 @@ export const RoomConfigPage: React.FC = () => {
               <CardTitle>
                 Room #{selectedRoom.room_number} Independent Electricity Records
               </CardTitle>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-th-textMuted mt-0.5">
                 {formatHostelType(selectedRoom.hostel_type)} · Block {selectedRoom.block} · Isolated strictly to Room ID #{selectedRoom.id}
               </p>
             </div>
@@ -719,14 +718,14 @@ export const RoomConfigPage: React.FC = () => {
         </CardHeader>
         <CardContent>
           {roomReadings.length === 0 ? (
-            <div className="py-6 text-center text-xs text-slate-400">
+            <div className="py-6 text-center text-xs text-th-textMuted">
               No sub-meter readings recorded for Room #{selectedRoom.room_number} yet. Records entered for other rooms never appear here.
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs min-w-[600px]">
                 <thead>
-                  <tr className="border-b border-slate-100 dark:border-dark-border text-slate-400 font-semibold uppercase tracking-wider">
+                  <tr className="border-b border-th-borderSub text-th-textMuted font-semibold uppercase tracking-wider">
                     <th className="py-2.5 px-3">Billing Period</th>
                     <th className="py-2.5 px-3 text-right">Start kWh</th>
                     <th className="py-2.5 px-3 text-right">End kWh</th>
@@ -738,28 +737,28 @@ export const RoomConfigPage: React.FC = () => {
                     <th className="py-2.5 px-3">Source Tag</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-dark-border">
+                <tbody className="divide-y divide-th-borderSub">
                   {roomReadings.map((r) => {
                     const bill = r.consumption * ratePerUnit;
                     return (
-                      <tr key={r.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
-                        <td className="py-3 px-3 font-semibold text-navy-900 dark:text-dark-text">
+                      <tr key={r.id} className="hover:bg-th-highlight/50">
+                        <td className="py-3 px-3 font-semibold text-th-text">
                           {r.billing_period.label}
                         </td>
-                        <td className="py-3 px-3 text-right font-mono text-slate-600">
+                        <td className="py-3 px-3 text-right font-mono text-th-textSub">
                           {r.reading_start.toFixed(1)}
                         </td>
-                        <td className="py-3 px-3 text-right font-mono text-slate-600">
+                        <td className="py-3 px-3 text-right font-mono text-th-textSub">
                           {r.reading_end.toFixed(1)}
                         </td>
-                        <td className="py-3 px-3 text-right font-mono font-bold text-navy-900 dark:text-dark-text">
+                        <td className="py-3 px-3 text-right font-mono font-bold text-th-text">
                           {r.consumption.toFixed(2)} kWh
                         </td>
-                        <td className="py-3 px-3 text-right font-mono font-bold text-electric-600">
+                        <td className="py-3 px-3 text-right font-mono font-bold text-th-accentText">
                           ₹{bill.toFixed(2)}
                         </td>
                         {showEqualShare && (
-                          <td className="py-3 px-3 text-right font-mono font-semibold text-slate-700 dark:text-slate-300">
+                          <td className="py-3 px-3 text-right font-mono font-semibold text-th-textSub">
                             ₹{(bill / ROOMMATES_PER_ROOM).toFixed(2)} / mate
                           </td>
                         )}
@@ -813,17 +812,17 @@ export const RoomConfigPage: React.FC = () => {
         <form id="edit-room-config-form" onSubmit={handleSaveRoomConfig} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="edit-hostel-select" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="edit-hostel-select" className="block text-xs font-semibold text-th-textSub mb-1.5">
                 Hostel Category
               </label>
               <select
                 id="edit-hostel-select"
                 value={editHostel}
                 onChange={(e) => setEditHostel(e.target.value as HostelType)}
-                className="w-full text-sm rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-navy-900 dark:text-dark-text py-2 px-3 focus:outline-none focus:ring-2 focus:ring-electric-500"
+                className="w-full text-sm rounded-xl border border-th-border bg-th-bg text-th-text py-2 px-3 focus:outline-none"
               >
                 {ADITYA_HOSTELS.map((h) => (
-                  <option key={h.value} value={h.value}>
+                  <option key={h.value} value={h.value} className="bg-th-card text-th-text">
                     {h.label}
                   </option>
                 ))}
@@ -831,17 +830,17 @@ export const RoomConfigPage: React.FC = () => {
             </div>
 
             <div>
-              <label htmlFor="edit-block-select" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="edit-block-select" className="block text-xs font-semibold text-th-textSub mb-1.5">
                 Block (A–G)
               </label>
               <select
                 id="edit-block-select"
                 value={editBlock}
                 onChange={(e) => setEditBlock(e.target.value as Block)}
-                className="w-full text-sm rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-navy-900 dark:text-dark-text py-2 px-3 focus:outline-none focus:ring-2 focus:ring-electric-500"
+                className="w-full text-sm rounded-xl border border-th-border bg-th-bg text-th-text py-2 px-3 focus:outline-none"
               >
                 {ADITYA_BLOCKS.map((blk) => (
-                  <option key={blk} value={blk}>
+                  <option key={blk} value={blk} className="bg-th-card text-th-text">
                     Block {blk}
                   </option>
                 ))}
@@ -867,7 +866,7 @@ export const RoomConfigPage: React.FC = () => {
           </div>
 
           <div>
-            <span className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            <span className="block text-xs font-semibold text-th-textSub mb-1.5">
               Room Category
             </span>
             <div className="grid grid-cols-2 gap-3">
@@ -879,12 +878,12 @@ export const RoomConfigPage: React.FC = () => {
                   onClick={() => setEditRoomType(rt)}
                   className={`p-3 rounded-xl border-2 text-left text-xs transition-colors ${
                     editRoomType === rt
-                      ? "border-electric-600 bg-electric-50/70 dark:bg-electric-950/30 font-bold"
-                      : "border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card"
+                      ? "border-th-accent bg-th-highlight font-bold"
+                      : "border-th-border bg-th-card hover:bg-th-surface"
                   }`}
                 >
-                  <p className="font-bold text-navy-900 dark:text-dark-text">{formatRoomType(rt)} Room</p>
-                  <p className="text-[10px] text-slate-500 mt-0.5">
+                  <p className="font-bold text-th-text">{formatRoomType(rt)} Room</p>
+                  <p className="text-[10px] text-th-textMuted mt-0.5">
                     {rt === "ac" ? "1 AC + 2 Fans + 4 Lights" : "2 Fans + 4 Lights"}
                   </p>
                 </button>

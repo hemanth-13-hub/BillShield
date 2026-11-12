@@ -5,90 +5,198 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   BillShield Central Design System
+   ---------------------------------------------------------------------------
+   LIGHT THEME:
+     - Warm-white canvas:       #F5F7F4
+     - Soft sage surfaces:      #E6EFEA
+     - Warm off-white cards:    #FAFBF9 (never harsh pure-white #FFFFFF)
+     - Muted lavender accents:  #EAEAF3
+     - Pastel green highlights: #DCE8E0
+     - Dark grey-green text:    #344B45
+   DARK THEME:
+     - Deep charcoal canvas:    #101820
+     - Rich slate surfaces:     #1B2838
+     - Blue-grey cards:         #253448
+     - Muted steel-blue accent: #526D82
+     - Soft silver text:        #E8F0F7
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @layer base {
-  /* Light mode base */
+  :root {
+    color-scheme: light;
+
+    --bs-bg:           245 247 244; /* #F5F7F4 */
+    --bs-surface:      230 239 234; /* #E6EFEA */
+    --bs-card:         250 251 249; /* #FAFBF9 */
+    --bs-elevated:     238 244 240; /* #EEF4F0 */
+    --bs-highlight:    220 232 224; /* #DCE8E0 */
+    --bs-border:       202 218 209; /* #CADAD1 */
+    --bs-border-sub:   220 232 224; /* #DCE8E0 */
+
+    --bs-accent:       63 94 86;    /* #3F5E56 */
+    --bs-accent-hover: 50 75 68;    /* #324B44 */
+    --bs-accent-on:    245 247 244; /* #F5F7F4 */
+    --bs-accent-soft:  220 232 224; /* #DCE8E0 */
+    --bs-accent-text:  52 75 69;    /* #344B45 */
+
+    --bs-lavender:     234 234 243; /* #EAEAF3 */
+    --bs-lavender-bdr: 210 210 229; /* #D2D2E5 */
+    --bs-lavender-txt: 72 72 104;   /* #484868 */
+
+    --bs-text:         52 75 69;    /* #344B45 */
+    --bs-text-sub:     77 104 97;   /* #4D6861 */
+    --bs-text-muted:   82 108 101;  /* #526C65 */
+
+    --bs-hero:         230 239 234; /* #E6EFEA */
+    --bs-hero-bdr:     198 216 205; /* #C6D8CD */
+    --bs-hero-text:    52 75 69;    /* #344B45 */
+    --bs-hero-sub:     77 104 97;   /* #4D6861 */
+
+    --bs-sec-btn:      52 75 69;    /* #344B45 */
+    --bs-sec-btn-hover:40 59 54;    /* #283B36 */
+
+    /* Semantic Status (Meaningful & Muted) */
+    --bs-match-bg:     222 238 228; /* #DEEEE4 */
+    --bs-match-bdr:    173 211 190; /* #ADD3BE */
+    --bs-match-txt:    31 92 67;    /* #1F5C43 */
+    --bs-match-solid:  46 125 91;   /* #2E7D5B */
+
+    --bs-warn-bg:      247 238 219; /* #F7EEDB */
+    --bs-warn-bdr:     223 200 150; /* #DFC896 */
+    --bs-warn-txt:     115 81 22;   /* #735116 */
+    --bs-warn-solid:   184 134 45;  /* #B8862D */
+
+    --bs-err-bg:       247 229 228; /* #F7E5E4 */
+    --bs-err-bdr:      224 179 176; /* #E0B3B0 */
+    --bs-err-txt:      140 45 45;   /* #8C2D2D */
+    --bs-err-solid:    181 68 68;   /* #B54444 */
+
+    --bs-shadow-xs:    0 1px 2px 0 rgba(52, 75, 69, 0.05);
+    --bs-shadow-soft:  0 4px 18px -2px rgba(52, 75, 69, 0.06), 0 2px 6px -1px rgba(52, 75, 69, 0.03);
+    --bs-shadow-card:  0 10px 28px -4px rgba(52, 75, 69, 0.08), 0 4px 8px -2px rgba(52, 75, 69, 0.03);
+  }
+
+  .dark {
+    color-scheme: dark;
+
+    --bs-bg:           16 24 32;    /* #101820 */
+    --bs-surface:      27 40 56;    /* #1B2838 */
+    --bs-card:         37 52 72;    /* #253448 */
+    --bs-elevated:     45 63 86;    /* #2D3F56 */
+    --bs-highlight:    48 68 92;    /* #30445C */
+    --bs-border:       52 74 98;    /* #344A62 */
+    --bs-border-sub:   44 62 84;    /* #2C3E54 */
+
+    --bs-accent:       82 109 130;  /* #526D82 */
+    --bs-accent-hover: 98 128 152;  /* #628098 */
+    --bs-accent-on:    232 240 247; /* #E8F0F7 */
+    --bs-accent-soft:  38 56 76;    /* #26384C */
+    --bs-accent-text:  166 194 214; /* #A6C2D6 */
+
+    --bs-lavender:     36 50 70;    /* #243246 */
+    --bs-lavender-bdr: 58 79 104;   /* #3A4F68 */
+    --bs-lavender-txt: 196 213 228; /* #C4D5E4 */
+
+    --bs-text:         232 240 247; /* #E8F0F7 */
+    --bs-text-sub:     182 199 214; /* #B6C7D6 */
+    --bs-text-muted:   152 174 191; /* #98AEBF */
+
+    --bs-hero:         27 40 56;    /* #1B2838 */
+    --bs-hero-bdr:     52 74 98;    /* #344A62 */
+    --bs-hero-text:    232 240 247; /* #E8F0F7 */
+    --bs-hero-sub:     182 199 214; /* #B6C7D6 */
+
+    --bs-sec-btn:      45 63 86;    /* #2D3F56 */
+    --bs-sec-btn-hover:56 77 104;   /* #384D68 */
+
+    /* Semantic Status (Balanced for Dark Surfaces) */
+    --bs-match-bg:     23 46 41;    /* #172E29 */
+    --bs-match-bdr:    43 91 78;    /* #2B5B4E */
+    --bs-match-txt:    138 211 181; /* #8AD3B5 */
+    --bs-match-solid:  79 163 126;  /* #4FA37E */
+
+    --bs-warn-bg:      46 37 22;    /* #2E2516 */
+    --bs-warn-bdr:     92 74 38;    /* #5C4A26 */
+    --bs-warn-txt:     229 195 123; /* #E5C37B */
+    --bs-warn-solid:   212 161 71;  /* #D4A147 */
+
+    --bs-err-bg:       50 27 30;    /* #321B1E */
+    --bs-err-bdr:      99 51 57;    /* #633339 */
+    --bs-err-txt:      234 160 160; /* #EAA0A0 */
+    --bs-err-solid:    212 106 106; /* #D46A6A */
+
+    --bs-shadow-xs:    0 1px 2px 0 rgba(6, 10, 14, 0.35);
+    --bs-shadow-soft:  0 6px 20px -4px rgba(6, 10, 14, 0.42), 0 2px 6px -1px rgba(6, 10, 14, 0.25);
+    --bs-shadow-card:  0 12px 30px -6px rgba(6, 10, 14, 0.55), 0 4px 10px -2px rgba(6, 10, 14, 0.30);
+  }
+
   body {
-    @apply bg-surface-bg text-navy-900 font-sans antialiased;
+    background-color: rgb(var(--bs-bg));
+    color: rgb(var(--bs-text));
+    @apply font-sans antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
-  /* ── Dark mode body ───────────────────────────────────────────────── */
-  .dark body {
-    @apply bg-dark-bg text-dark-text;
-  }
-
-  /* ── Accessible focus rings (visible for keyboard nav) ───────────── */
   *:focus-visible {
-    @apply outline-none ring-2 ring-electric-500 ring-offset-2 ring-offset-white;
-  }
-  .dark *:focus-visible {
-    @apply ring-offset-dark-bg;
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(var(--bs-bg)), 0 0 0 4px rgb(var(--bs-accent));
   }
 
-  /* ── Skip-to-main link (screen reader / keyboard users) ──────────── */
   .skip-link {
     @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50
-           focus:bg-electric-600 focus:text-white focus:px-4 focus:py-2
-           focus:rounded-xl focus:font-bold focus:shadow-card;
+           focus:px-4 focus:py-2 focus:rounded-xl focus:font-bold focus:shadow-card;
+    background-color: rgb(var(--bs-accent));
+    color: rgb(var(--bs-accent-on));
   }
 }
 
-/* ── Dark mode card overrides ───────────────────────────────────────────── */
-@layer components {
-  .dark .bg-white {
-    background-color: #1E293B;
-  }
-  .dark .bg-surface-bg {
-    background-color: #0F172A;
-  }
-  .dark .bg-slate-50 {
-    background-color: #1E293B;
-  }
-  .dark .bg-slate-100 {
-    background-color: #263146;
-  }
-  .dark .text-navy-900 {
-    color: #E2E8F0;
-  }
-  .dark .text-slate-600 {
-    color: #94A3B8;
-  }
-  .dark .text-slate-500 {
-    color: #64748B;
-  }
-  .dark .border-slate-200 {
-    border-color: #334155;
-  }
-  .dark .border-slate-100 {
-    border-color: #1E293B;
-  }
-  .dark .divide-slate-100 > * + * {
-    border-color: #1E293B;
-  }
+/* ── Active Monitored Room Sidebar Dropdown (overrides browser disabled grey) ── */
+.sidebar-room-select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #E6EFEA;
+  color: #405B4C;
+  -webkit-text-fill-color: #405B4C;
+  border-color: #C9D9CF;
+  opacity: 1;
+}
+.sidebar-room-select:hover:not(:disabled) {
+  background-color: #DCE8E0;
+}
+.sidebar-room-select:disabled {
+  background-color: #E6EFEA;
+  color: #405B4C;
+  -webkit-text-fill-color: #405B4C;
+  border-color: #C9D9CF;
+  opacity: 1;
+}
+.sidebar-room-select option {
+  background-color: #E6EFEA;
+  color: #405B4C;
+}
 
-  /* Keep printable PDF document sheet crisp white paper even in dark mode */
-  .dark #billshield-report,
-  .dark #billshield-report .bg-white {
-    background-color: #FFFFFF;
-  }
-  .dark #billshield-report .bg-slate-50 {
-    background-color: #F8FAFC;
-  }
-  .dark #billshield-report .text-navy-900 {
-    color: #0B1F3A;
-  }
-  .dark #billshield-report .text-slate-600 {
-    color: #475569;
-  }
-  .dark #billshield-report .text-slate-500 {
-    color: #64748B;
-  }
-  .dark #billshield-report .border-slate-200 {
-    border-color: #E2E8F0;
-  }
-  .dark #billshield-report .border-slate-100 {
-    border-color: #F1F5F9;
-  }
+.dark .sidebar-room-select {
+  background-color: #253448;
+  color: #B8C9D8;
+  -webkit-text-fill-color: #B8C9D8;
+  border-color: #526D82;
+  opacity: 1;
+}
+.dark .sidebar-room-select:hover:not(:disabled) {
+  background-color: #2E4057;
+}
+.dark .sidebar-room-select:disabled {
+  background-color: #253448;
+  color: #B8C9D8;
+  -webkit-text-fill-color: #B8C9D8;
+  border-color: #526D82;
+  opacity: 1;
+}
+.dark .sidebar-room-select option {
+  background-color: #253448;
+  color: #B8C9D8;
 }
 
 /* ── Custom scrollbar ────────────────────────────────────────────────────── */
@@ -100,22 +208,36 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: rgb(var(--bs-border));
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-.dark ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: rgb(var(--bs-accent));
 }
 
-/* ── Print Styles ────────────────────────────────────────────────────────── */
+/* ── Print Styles (clean ink-friendly certificate printout) ──────────────── */
 @media print {
+  :root,
+  .dark {
+    color-scheme: light !important;
+    --bs-bg: 255 255 255 !important;
+    --bs-surface: 248 250 249 !important;
+    --bs-card: 255 255 255 !important;
+    --bs-elevated: 244 247 245 !important;
+    --bs-border: 209 217 213 !important;
+    --bs-text: 36 53 48 !important;
+    --bs-text-sub: 72 90 84 !important;
+    --bs-text-muted: 100 116 110 !important;
+    --bs-hero: 240 245 242 !important;
+    --bs-hero-text: 36 53 48 !important;
+    --bs-hero-sub: 72 90 84 !important;
+  }
+
   body {
     background: #ffffff !important;
-    color: #0B1F3A !important;
+    color: #243530 !important;
   }
+
   aside, nav, header, .print\:hidden {
     display: none !important;
   }
@@ -125,7 +247,6 @@
   .print\:border-none {
     border: none !important;
   }
-  /* Ensure coloured verdict badges print in colour */
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;

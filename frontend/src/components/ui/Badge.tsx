@@ -29,14 +29,14 @@ export const Badge: React.FC<BadgeProps> = ({
   // 1. Source Tag Variant
   if (variant === "source" || sourceType) {
     const src = sourceType || (children as ReadingSource);
-    let styles = "bg-slate-100 text-slate-700 border-slate-200";
+    let styles = "bg-th-elevated text-th-textSub border-th-border";
 
     if (src === "Manual Entry") {
-      styles = "bg-blue-50 text-blue-700 border-blue-200";
+      styles = "bg-th-highlight text-th-text border-th-border";
     } else if (src === "Simulated Demo Data") {
-      styles = "bg-amber-100 text-amber-900 border-amber-400 font-bold";
+      styles = "bg-th-warnBg text-th-warnTxt border-th-warnBdr font-bold";
     } else if (src === "Sensor (Future)") {
-      styles = "bg-purple-50 text-purple-700 border-purple-200";
+      styles = "bg-th-lavender text-th-lavenderTxt border-th-lavenderBdr";
     }
 
     const displayLabel = src === "Simulated Demo Data" ? "SIMULATED DATA" : src;
@@ -49,10 +49,10 @@ export const Badge: React.FC<BadgeProps> = ({
         <span
           className={`w-1.5 h-1.5 rounded-full ${
             src === "Manual Entry"
-              ? "bg-blue-500"
+              ? "bg-th-accent"
               : src === "Simulated Demo Data"
-              ? "bg-amber-600"
-              : "bg-purple-500"
+              ? "bg-th-warnSolid"
+              : "bg-th-lavenderTxt"
           }`}
         />
         {displayLabel}
@@ -60,30 +60,30 @@ export const Badge: React.FC<BadgeProps> = ({
     );
   }
 
-  // 2. Status Verdict Variant (Green / Amber / Red ONLY)
+  // 2. Status Verdict Variant (Muted Match / Warning / Error ONLY)
   if (variant === "status" || statusType) {
     const st = statusType || (children as Verdict);
-    let styles = "bg-emerald-50 text-emerald-800 border-emerald-200";
+    let styles = "bg-th-matchBg text-th-matchTxt border-th-matchBdr";
 
     if (st === "Readings Match") {
-      styles = "bg-emerald-50 text-emerald-800 border-emerald-300";
+      styles = "bg-th-matchBg text-th-matchTxt border-th-matchBdr";
     } else if (st === "Minor Variation") {
-      styles = "bg-amber-50 text-amber-800 border-amber-300";
+      styles = "bg-th-warnBg text-th-warnTxt border-th-warnBdr";
     } else if (st === "Significant Mismatch") {
-      styles = "bg-rose-50 text-rose-800 border-rose-300";
+      styles = "bg-th-errBg text-th-errTxt border-th-errBdr";
     }
 
     return (
       <span
-        className={`inline-flex items-center gap-1.5 font-semibold rounded-full border shadow-sm ${sizeStyles} ${styles} ${className}`}
+        className={`inline-flex items-center gap-1.5 font-semibold rounded-full border shadow-xs ${sizeStyles} ${styles} ${className}`}
       >
         <span
           className={`w-2 h-2 rounded-full ${
             st === "Readings Match"
-              ? "bg-emerald-500"
+              ? "bg-th-matchSolid"
               : st === "Minor Variation"
-              ? "bg-amber-500"
-              : "bg-rose-500"
+              ? "bg-th-warnSolid"
+              : "bg-th-errSolid"
           }`}
         />
         {st}
@@ -94,7 +94,7 @@ export const Badge: React.FC<BadgeProps> = ({
   // 3. Neutral / Generic Variant
   return (
     <span
-      className={`inline-flex items-center font-medium rounded-md bg-slate-100 text-slate-700 ${sizeStyles} ${className}`}
+      className={`inline-flex items-center font-medium rounded-md bg-th-elevated text-th-textSub border border-th-borderSub ${sizeStyles} ${className}`}
     >
       {children}
     </span>

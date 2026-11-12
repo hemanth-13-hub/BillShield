@@ -15,38 +15,38 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="w-full">
         {label && (
-          <label htmlFor={inputId} className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+          <label htmlFor={inputId} className="block text-xs font-semibold text-th-textSub mb-1.5">
             {label}
           </label>
         )}
-        <div className="relative rounded-xl shadow-sm">
+        <div className="relative rounded-xl shadow-xs">
           {leftIcon && (
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-th-textMuted">
               {leftIcon}
             </div>
           )}
           <input
             ref={ref}
             id={inputId}
-            className={`block w-full rounded-xl border transition-colors duration-200 text-sm py-2 px-3 focus:outline-none focus:ring-2 ${
+            className={`block w-full rounded-xl border transition-colors duration-150 text-sm py-2 px-3 focus:outline-none placeholder:text-th-textMuted ${
               leftIcon ? "pl-9" : ""
             } ${rightIcon ? "pr-9" : ""} ${
               error
-                ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500 bg-red-50/20"
-                : "border-slate-200 dark:border-dark-border text-navy-900 dark:text-dark-text focus:ring-electric-500 focus:border-electric-500 bg-white dark:bg-dark-card hover:border-slate-300 dark:hover:border-slate-500"
+                ? "border-th-errBdr text-th-errTxt bg-th-errBg/40 focus:border-th-errSolid"
+                : "border-th-border text-th-text bg-th-bg hover:border-th-accent/60 focus:border-th-accent"
             } ${className}`}
             {...props}
           />
           {rightIcon && (
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-th-textMuted">
               {rightIcon}
             </div>
           )}
         </div>
         {error ? (
-          <p className="mt-1 text-xs text-red-600 font-medium">{error}</p>
+          <p className="mt-1 text-xs text-th-errTxt font-medium">{error}</p>
         ) : helperText ? (
-          <p className="mt-1 text-xs text-slate-500">{helperText}</p>
+          <p className="mt-1 text-xs text-th-textMuted">{helperText}</p>
         ) : null}
       </div>
     );

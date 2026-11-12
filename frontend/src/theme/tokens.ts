@@ -1,129 +1,126 @@
 /**
- * BillShield Design Tokens
- * Single source of truth for colors, radius, shadows, and typography.
- * Premium analytics dashboard aesthetic:
- *   - Dark Navy #0B1F3A
- *   - Electric Blue #2563EB
- *   - Soft Background #F4F7FB
- *   - White rounded-2xl cards with soft shadows
- *   - Status colors (green/amber/red) ONLY for match, minor variation, mismatch
+ * BillShield Design Tokens v2
+ * Single source of truth for colors, radius, shadows, typography, and chart palettes.
+ *
+ * LIGHT theme: Warm-white (#F5F7F4), soft sage surfaces (#E6EFEA),
+ *              muted lavender accents (#EAEAF3), pastel green highlights (#DCE8E0),
+ *              and natural grey-green text (#344B45).
+ * DARK  theme: Deep charcoal (#101820), rich slate surfaces (#1B2838),
+ *              blue-grey cards (#253448), muted steel-blue accents (#526D82),
+ *              and soft silver text (#E8F0F7).
  */
 
 export const tokens = {
   colors: {
-    // Primary Brand
-    navy: {
-      900: "#0B1F3A", // Deep Navy Header & Sidebar
-      800: "#132D52",
-      700: "#1C3C6B",
-      500: "#315485",
-      100: "#E6ECF5",
+    light: {
+      bg:         "#F5F7F4",
+      surface:    "#E6EFEA",
+      card:       "#FAFBF9",
+      elevated:   "#EEF4F0",
+      highlight:  "#DCE8E0",
+      border:     "#CADAD1",
+      borderSub:  "#DCE8E0",
+      accent:     "#3F5E56",
+      accentSoft: "#DCE8E0",
+      lavender:   "#EAEAF3",
+      text:       "#344B45",
+      textSub:    "#4D6861",
+      textMuted:  "#526C65",
     },
-    // Electric Blue Accent
-    electric: {
-      600: "#2563EB", // Primary CTA & active states
-      500: "#3B82F6",
-      400: "#60A5FA",
-      100: "#DBEAFE",
-      50: "#EFF6FF",
+    dark: {
+      bg:         "#101820",
+      surface:    "#1B2838",
+      card:       "#253448",
+      elevated:   "#2D3F56",
+      highlight:  "#30445C",
+      border:     "#344A62",
+      borderSub:  "#2C3E54",
+      accent:     "#526D82",
+      accentSoft: "#26384C",
+      lavender:   "#243246",
+      text:       "#E8F0F7",
+      textSub:    "#B6C7D6",
+      textMuted:  "#98AEBF",
     },
-    // Surfaces
-    surface: {
-      bg: "#F4F7FB",      // Soft dashboard background
-      card: "#FFFFFF",    // Pure white rounded card
-      subtle: "#F8FAFC",  // Table header / light input bg
-      border: "#E2E8F0",  // Crisp border
-    },
-    // Text
-    text: {
-      primary: "#0B1F3A",
-      secondary: "#64748B",
-      muted: "#94A3B8",
-      inverse: "#FFFFFF",
-    },
-    // Status (Used ONLY for verification results & reading match fidelity)
     status: {
       match: {
-        text: "#065F46",
-        bg: "#D1FAE5",
-        border: "#A7F3D0",
-        solid: "#10B981",
-        label: "Readings Match",
+        text:   "#1F5C43",
+        bg:     "#DEEEE4",
+        border: "#ADD3BE",
+        solid:  "#2E7D5B",
+        label:  "Readings Match",
       },
       variation: {
-        text: "#92400E",
-        bg: "#FEF3C7",
-        border: "#FDE68A",
-        solid: "#F59E0B",
-        label: "Minor Variation",
+        text:   "#735116",
+        bg:     "#F7EEDB",
+        border: "#DFC896",
+        solid:  "#B8862D",
+        label:  "Minor Variation",
       },
       mismatch: {
-        text: "#991B1B",
-        bg: "#FEE2E2",
-        border: "#FECACA",
-        solid: "#EF4444",
-        label: "Significant Mismatch",
-      },
-    },
-    // Source Tags
-    source: {
-      manual: {
-        text: "#1E40AF",
-        bg: "#DBEAFE",
-        border: "#BFDBFE",
-        label: "Manual Entry",
-      },
-      simulated: {
-        text: "#475569",
-        bg: "#F1F5F9",
-        border: "#CBD5E1",
-        label: "Simulated Demo Data",
-      },
-      sensor: {
-        text: "#6B21A8",
-        bg: "#F3E8FF",
-        border: "#E9D5FF",
-        label: "Sensor (Future)",
+        text:   "#8C2D2D",
+        bg:     "#F7E5E4",
+        border: "#E0B3B0",
+        solid:  "#B54444",
+        label:  "Significant Mismatch",
       },
     },
   },
 
   radius: {
-    sm: "0.375rem",   // 6px
-    md: "0.5rem",     // 8px
-    lg: "0.75rem",    // 12px
-    xl: "1rem",       // 16px
-    "2xl": "1rem",    // 16px - Standard rounded-2xl
-    "3xl": "1.5rem",  // 24px - Large hero cards
+    sm:   "0.375rem",
+    md:   "0.5rem",
+    lg:   "0.75rem",
+    xl:   "1rem",
+    "2xl":"1rem",
+    "3xl":"1.5rem",
     full: "9999px",
   },
 
   shadows: {
-    soft: "0 4px 20px -2px rgba(11, 31, 58, 0.05), 0 2px 6px -1px rgba(11, 31, 58, 0.03)",
-    card: "0 10px 30px -4px rgba(11, 31, 58, 0.06), 0 4px 8px -2px rgba(11, 31, 58, 0.02)",
-    hover: "0 14px 34px -4px rgba(11, 31, 58, 0.10), 0 6px 12px -2px rgba(11, 31, 58, 0.04)",
+    soft: "var(--bs-shadow-soft)",
+    card: "var(--bs-shadow-card)",
   },
 
   typography: {
     fontSans: "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif",
-    sizes: {
-      xs: "0.75rem",
-      sm: "0.875rem",
-      base: "1rem",
-      lg: "1.125rem",
-      xl: "1.25rem",
-      "2xl": "1.5rem",
-      "3xl": "1.875rem",
-    },
-    weights: {
-      normal: 400,
-      medium: 500,
-      semibold: 600,
-      bold: 700,
-      extrabold: 800,
-    },
   },
 } as const;
 
+/** Coordinated, muted chart colors for Recharts across Light and Dark modes */
+export function getChartPalette(isDark: boolean) {
+  if (isDark) {
+    return {
+      roomSeries:   "#8CAEC6", // Muted light steel-blue
+      hostelSeries: "#7FB09C", // Muted sage-mint
+      diffSeries:   "#D4A147", // Muted warm ochre
+      acSeries:     "#8CAEC6",
+      nonAcSeries:  "#7FB09C",
+      axisStroke:   "#344A62",
+      axisTick:     "#98AEBF",
+      gridStroke:   "#2C3E54",
+      tooltipBg:    "#1B2838",
+      tooltipBdr:   "#344A62",
+      tooltipText:  "#E8F0F7",
+      tooltipMuted: "#B6C7D6",
+    };
+  }
+  return {
+    roomSeries:   "#526D82", // Muted steel-blue
+    hostelSeries: "#4E8270", // Muted sage-teal
+    diffSeries:   "#B8862D", // Muted ochre
+    acSeries:     "#526D82",
+    nonAcSeries:  "#4E8270",
+    axisStroke:   "#CADAD1",
+    axisTick:     "#526C65",
+    gridStroke:   "#DCE8E0",
+    tooltipBg:    "#FAFBF9",
+    tooltipBdr:   "#CADAD1",
+    tooltipText:  "#344B45",
+    tooltipMuted: "#5F7A73",
+  };
+}
+
 export type DesignTokens = typeof tokens;
+
 
