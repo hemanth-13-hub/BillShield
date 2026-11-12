@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ToastProvider } from "./components/ui/Toast";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 import { RoomProvider } from "./context/RoomContext";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import { AppLayout } from "./components/layout/AppLayout";
@@ -15,14 +15,9 @@ import { HistoryPage } from "./pages/HistoryPage";
 import { ReportPage } from "./pages/ReportPage";
 import { SettingsPage } from "./pages/SettingsPage";
 
-/** First-screen gate: unregistered visitors see the registration flow first; registered students see their personalized dashboard. */
-const HomeRoute: React.FC = () => {
-  const { isRegistered } = useAuth();
-  if (!isRegistered) {
-    return <Navigate to="/register" replace />;
-  }
-  return <DashboardPage />;
-};
+/** Dashboard is always the default landing page. Unregistered visitors see
+ *  the welcome empty-state inside DashboardPage itself (no forced redirect). */
+const HomeRoute: React.FC = () => <DashboardPage />;
 
 export const App: React.FC = () => {
   return (
